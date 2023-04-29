@@ -1,0 +1,45 @@
+.mainContainer
+{
+    height: 100vh;
+    width: 60vw;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.buttons
+{
+    text-align: center; 
+    margin-top: 2%; 
+}
+
+.buttonIcon
+{
+    vertical-align: middle;
+    margin-bottom: 3px;
+    margin-right: 10px;
+}
+
+.moreInfoButton
+{
+    margin-top: 15%;
+
+    background: none !important;
+    font-size: 15px;
+
+    color: var(--gray);
+    transition: 0.2s;
+}
+
+.moreInfoButton:hover
+{
+    color: var(--text);
+}
+
+.moreInfoIcon
+{
+    margin-top: 10px;
+    font-size: 20px;
+}

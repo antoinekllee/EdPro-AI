@@ -1,0 +1,65 @@
+.title
+{
+    color: var(--text);
+    position: relative; 
+    text-align: center;
+    font-size: 50px;
+    margin-bottom: 50px;
+}
+
+.title:after 
+{
+    position: absolute;
+    content: '';
+    height: 2px;
+    bottom: -25px; 
+    background: var(--gray);
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    width: 35%;
+    transition: 0.5s;
+ }
+  
+.title:hover:after {
+    width: 100%;
+    background: var(--green);
+}
+
+/* .icon
+{
+    color: var(--green);
+    margin-left: 20px;
+    width: 40px;
+    height: 40px;
+} */
+
+/* .logo
+{
+    margin-left: 12px;
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+} */
+
+.logoWrapper {
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    overflow: hidden;
+    position: relative;
+    margin-left: 20px;
+  }
+  
+  .logo {
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+    object-position: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  

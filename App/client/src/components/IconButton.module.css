@@ -1,0 +1,25 @@
+.button
+{
+    background: none !important;
+    background-color: red;
+
+    width: 30px;
+    height: 60px; 
+    font-size: 15px;
+
+    color: var(--gray);
+    transition: 0.2s;
+
+}
+
+.button:hover
+{
+    color: var(--text);
+}
+
+.icon
+{
+    margin-top: 4px;
+    /* margin-left: 6px; */
+    font-size: 20px;
+}

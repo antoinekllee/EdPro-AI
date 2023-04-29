@@ -1,0 +1,66 @@
+/* .container
+{
+    margin-left: 20vw;
+    margin-right: 20vw;
+} */
+
+.navContainer
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    margin-top: 15px;
+}
+
+.logoText
+{
+    color: var(--text); 
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    /* font-family: 'Source Code Pro', monospace; */
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+}
+
+.logoText:hover
+{
+    cursor: pointer;
+}
+
+/* .icon
+{
+    color: var(--green);
+    margin-right: 17px;
+    width: 25px;
+    height: 25px;
+} */
+
+.logo
+{
+    color: var(--green);
+    margin-right: 17px;
+    width: 40px;
+    height: 40px;
+}
+
+.navLeft, .navRight
+{   
+    display: flex;
+    align-items: center;
+}
+
+.userText
+{
+    display: inline; 
+    position: relative; 
+    text-align: right; 
+    color: var(--gray); 
+    font-weight: 600;
+    font-size: 15px;
+    /* font-family: 'Source Code Pro', monospace; */
+    font-family: 'Roboto', sans-serif;
+    user-select: none;
+}
