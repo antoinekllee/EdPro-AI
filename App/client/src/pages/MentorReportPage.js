@@ -6,114 +6,126 @@ import * as FaIcons from "react-icons/fa";
 import LoadingContext from "../store/LoadingContext";
 
 function MentorReportPage(props) {
-  const { setIsLoading } = useContext(LoadingContext);
+    const { setIsLoading } = useContext(LoadingContext);
 
-  const [studentName, setStudentName] = useState("");
-  const [casExperiences, setCasExperiences] = useState("");
-  const [skills, setSkills] = useState({
-    communication: false,
-    collaboration: false,
-    criticalThinking: false,
-    creativity: false,
-    resilience: false,
-  });  
-  const [mentorReport, setMentorReport] = useState("");
-
-  const handleInputChange = (e) => {
-    setStudentName(e.target.value);
-  };
-
-  const handleTextAreaChange = (e) => {
-    setCasExperiences(e.target.value);
-  };
-
-  const handleCheckboxChange = (e) => {
-    setSkills({ ...skills, [e.target.name]: e.target.checked });
-  };
-
-  const generate = async (event) => {
-    event.preventDefault();
-
-    setIsLoading(true);
-
-    console.log("Student Name:", studentName);
-    console.log("CAS Experiences:", casExperiences);
-    console.log("Skills:", skills);
-
-    // Compile skills ticked into a string
-    let skillsString = "";
-    for (const [key, value] of Object.entries(skills)) {
-        if (value) {
-            skillsString += key + ", ";
-        }
-    }
-
-    const payload = { studentName, casExperiences, skills: skillsString };
-
-    const response = await fetch("/generate/mentorReport", {
-      headers: { "Content-Type": "application/json" },
-      method: "POST",
-      body: JSON.stringify(payload)
+    const [studentName, setStudentName] = useState("");
+    const [casExperiences, setCasExperiences] = useState("");
+    const [skills, setSkills] = useState({
+        communication: false,
+        collaboration: false,
+        criticalThinking: false,
+        creativity: false,
+        resilience: false,
     });
+    const [mentorReport, setMentorReport] = useState("");
 
-    const data = await response.json();
-    console.log(data.mentorReport); 
-    setMentorReport (data.mentorReport); 
+    const handleInputChange = (e) => {
+        setStudentName(e.target.value);
+    };
 
-    setIsLoading(false);
-  };
+    const handleTextAreaChange = (e) => {
+        setCasExperiences(e.target.value);
+    };
 
-  return (
-    <div>
-      <div className={classes.mainContainer}>
-        <h1 className={classes.title}>Mentor Report</h1>
-        <form onSubmit={generate} className={classes.form}>
-          <div className={classes.formLeft}>
-            <p>Student Name</p>
-            <input
-              type="text"
-              value={studentName}
-              onChange={handleInputChange}
-            />
-            <p>CAS Experiences</p>
-            <textarea
-              rows="4"
-              value={casExperiences}
-              onChange={handleTextAreaChange}
-            />
-          </div>
-          <div className={classes.formRight}>
-            {["Communication", "Collaboration", "Critical Thinking", "Creativity", "Resilience"].map(
-              (skill, index) => (
-                <div key={index} className={classes.checkboxContainer}>
-                  <input
-                    type="checkbox"
-                    name={skill.toLowerCase().split(" ").join("")}
-                    checked={skills[skill.toLowerCase().split(" ").join("")]}
-                    onChange={handleCheckboxChange}
-                  />
-                  <label>{skill}</label>
-                </div>
-              )
-            )}
-          </div>
-          <button type="submit">
-            <FaIcons.FaLightbulb className={classes.buttonIcon} />
-            Generate
-          </button>
-          { mentorReport && <p>{mentorReport}</p> }
-        </form>
-      </div>
-    </div>
-  );
+    const handleCheckboxChange = (e) => {
+        setSkills({ ...skills, [e.target.name]: e.target.checked });
+    };
+
+    const generate = async (event) => {
+        event.preventDefault();
+
+        setIsLoading(true);
+
+        console.log("Student Name:", studentName);
+        console.log("CAS Experiences:", casExperiences);
+        console.log("Skills:", skills);
+
+        // Compile skills ticked into a string
+        let skillsString = "";
+        for (const [key, value] of Object.entries(skills)) {
+            if (value) {
+                skillsString += key + ", ";
+            }
+        }
+
+        const payload = { studentName, casExperiences, skills: skillsString };
+
+        const response = await fetch("/generate/mentorReport", {
+            headers: { "Content-Type": "application/json" },
+            method: "POST",
+            body: JSON.stringify(payload),
+        });
+
+        const data = await response.json();
+        console.log(data.mentorReport);
+        setMentorReport(data.mentorReport);
+
+        setIsLoading(false);
+    };
+
+    return (
+        <div>
+            <div className={classes.mainContainer}>
+                <h1 className={classes.title}>Mentor Report</h1>
+                <form onSubmit={generate} className={classes.form}>
+                    <div className={classes.formLeft}>
+                        <p>Student Name</p>
+                        <input
+                            type="text"
+                            value={studentName}
+                            onChange={handleInputChange}
+                        />
+                        <p>CAS Experiences</p>
+                        <textarea
+                            rows="4"
+                            value={casExperiences}
+                            onChange={handleTextAreaChange}
+                        />
+                    </div>
+                    <div className={classes.formRight}>
+                        {[
+                            "Communication",
+                            "Collaboration",
+                            "Critical Thinking",
+                            "Creativity",
+                            "Resilience",
+                        ].map((skill, index) => (
+                            <div
+                                key={index}
+                                className={classes.checkboxContainer}
+                            >
+                                <input
+                                    type="checkbox"
+                                    name={skill
+                                        .toLowerCase()
+                                        .split(" ")
+                                        .join("")}
+                                    checked={
+                                        skills[
+                                            skill
+                                                .toLowerCase()
+                                                .split(" ")
+                                                .join("")
+                                        ]
+                                    }
+                                    onChange={handleCheckboxChange}
+                                />
+                                <label>{skill}</label>
+                            </div>
+                        ))}
+                    </div>
+                    <button type="submit">
+                        <FaIcons.FaLightbulb className={classes.buttonIcon} />
+                        Generate
+                    </button>
+                    {mentorReport && <p>{mentorReport}</p>}
+                </form>
+            </div>
+        </div>
+    );
 }
 
 export default MentorReportPage;
-
-
-
-
-
 
 // import React, { useState, useContext, useEffect } from "react";
 

@@ -1,0 +1,50 @@
+.mainContainer {
+    height: 90%;
+    width: 60vw;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    color: var(--text);
+    position: relative;
+    text-align: center;
+    font-size: 50px;
+    margin-bottom: 6.5%;
+}
+
+.title:after {
+    position: absolute;
+    content: "";
+    height: 2px;
+    bottom: -25px;
+    background: var(--gray);
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    width: 35%;
+    transition: 0.5s;
+}
+
+.title:hover:after {
+    width: 100%;
+    background: var(--green);
+}
+
+.mindmapContainer {
+    width: 800px;
+    height: 500px;
+    border: 2px solid black;
+    border-radius: 4px;
+}
+
+.container {
+    width: 800px;
+    height: 800px;
+    border: 2px solid black;
+    border-radius: 4px;
+    position: relative;
+  }
