@@ -11,6 +11,8 @@ body
 
   margin-left: 20vw;
   margin-right: 20vw;
+
+  margin-bottom: 100px;
 }
 
 p
@@ -23,13 +25,19 @@ p
 }
 
 p::selection {
-  background-color: var(--green);
+  background-color: var(--blue);
   color: var(--bg);
 }
 
 h1, h2, h3
 {
   user-select: none; 
+}
+
+h2
+{
+  margin-top: 50px;
+  margin-bottom: -5px;
 }
 
 button
@@ -51,7 +59,7 @@ button
 
 button:hover
 {
-  background-color: var(--green);
+  background-color: var(--blue);
   color: var(--panel);
 }
 
@@ -144,11 +152,11 @@ textarea {
   border-radius: 10px;
   display: block;
   resize: none;
-  caret-color: var(--green);
+  caret-color: var(--blue);
 }
 
 textarea::selection {
-  background-color: var(--green);
+  background-color: var(--blue);
   color: var(--bg);
 }
 

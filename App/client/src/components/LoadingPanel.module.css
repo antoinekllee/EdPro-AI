@@ -10,14 +10,6 @@
     justify-content: center;
 }
 
-
-.loadingText
-{
-    color: var(--text);
-    font-size: 50px;
-    font-weight: bold;
-}
-
 .icon
 {
     /* Position in middle */
@@ -29,5 +21,5 @@
     width: 40px;
     height: 40px;
     /* Color */
-    color: var(--green);
+    color: var(--gray);
 }

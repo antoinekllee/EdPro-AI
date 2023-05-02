@@ -1,0 +1,10 @@
+.submitButton {
+    align-self: center;
+    margin-top: 25px;
+}
+.buttonIcon
+{
+    vertical-align: middle;
+    margin-bottom: 3px;
+    margin-right: 10px;
+}

@@ -1,34 +1,48 @@
-import React, { useState, useContext, useRef, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useLocation } from 'react-router-dom';
+import React from "react";
 
-import LoadingContext from '../store/LoadingContext';
+import * as FaIcons from "react-icons/fa";
 
-import * as FaIcons from "react-icons/fa"; 
+import Title from "../components/Title";
+import Button from "../components/Button";
 
-import classes from './Dashboard.module.css';
+import classes from "./Dashboard.module.css";
 
-function Dashboard(props) 
-{
-  const { fade } = props;
+function Dashboard(props) {
+    const { fade } = props;
 
-  return (
-    <div className={classes.container}>
-      <div className={classes.titleContainer} >
-        <h2 className={classes.title}>Nexus</h2>
-        <h3 className={classes.subtitle}>AI Applications in Education</h3>
-      </div>
-      <div>
-        <p>TEXT HERE</p>
-        <div className={classes.buttonContainer}>
-            <button className={classes.twoColumnButton} onClick={() => fade('/mentor-report')}><FaIcons.FaPenFancy className={classes.buttonIcon} />Mentor Reports</button>
-            <button className={classes.twoColumnButton} onClick={() => fade('/syllabus')}><FaIcons.FaKeyboard className={classes.buttonIcon} />Syllabus Outlines</button>
-            <button className={classes.twoColumnButton} onClick={() => fade('/lessons')}><FaIcons.FaChalkboardTeacher className={classes.buttonIcon} />Lesson Plans</button>
-            <button className={classes.twoColumnButton} onClick={() => fade('/mindmap')}><FaIcons.FaMapMarked className={classes.buttonIcon} />Mindmap Visualisations</button>
+    return (
+        <div className={classes.container}>
+            <Title text="Nexus" />
+            <div>
+                <div className={classes.buttonContainer}>
+                    <Button
+                        className={classes.twoColumnButton}
+                        onClick={() => fade("/mentor-report")}
+                        IconComponent={FaIcons.FaPenFancy}
+                        text="Mentor Reports"
+                    />
+                    <Button
+                        className={classes.twoColumnButton}
+                        onClick={() => fade("/syllabus")}
+                        IconComponent={FaIcons.FaKeyboard}
+                        text="Syllabus Outlines"
+                    />
+                    <Button
+                        className={classes.twoColumnButton}
+                        onClick={() => fade("/lessons")}
+                        IconComponent={FaIcons.FaChalkboardTeacher}
+                        text="Lesson Plans"
+                    />
+                    <Button
+                        className={classes.twoColumnButton}
+                        onClick={() => fade("/mindmap")}
+                        IconComponent={FaIcons.FaMapMarked}
+                        text="Mindmap Visualisations"
+                    />
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 }
 
 export default Dashboard;

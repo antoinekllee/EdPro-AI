@@ -1,125 +1,59 @@
 .mainContainer {
     height: 90%;
     width: 60vw;
-  
+
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-  }
-  
-  .title {
-    color: var(--text);
-    position: relative;
-    text-align: center;
-    font-size: 50px;
-    margin-bottom: 6.5%;
-  }
-  
-  .title:after {
-    position: absolute;
-    content: "";
-    height: 2px;
-    bottom: -25px;
-    background: var(--gray);
-    margin: 0 auto;
-    left: 0;
-    right: 0;
-    width: 35%;
-    transition: 0.5s;
-  }
-  
-  .title:hover:after {
-    width: 100%;
-    background: var(--green);
-  }
-  
-  .form {
+}
+
+.form {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-  }
-  
-  .formLeft,
-  .formRight {
+}
+
+.formContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     width: 100%;
-  }
-  
-  .formLeft {
+}
+
+.formLeft,
+.formRight {
+    width: 45%;
+}
+
+.formLeft {
     margin-right: 20px;
-  }
-  
-  .checkboxContainer {
+    margin-bottom: 25px;
+}
+
+.checkboxContainer {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
-  }
-  
-  .checkboxContainer input[type="checkbox"] {
-    margin-right: 10px;
-  }
-  
-  .formLeft,
-  .formRight {
+    flex-basis: 45%; /* Add this line */
+    box-sizing: border-box; /* Add this line */
+}
+
+.checkboxContainer input[type="checkbox"] {
+    margin-right: 5px; /* Change this from 10px to 5px */
+    width: 16px; /* Add this line */
+    height: 16px; /* Add this line */
+}
+
+.formRight {
+    display: flex; /* Add this line */
+    flex-wrap: wrap; /* Add this line */
     width: 45%;
-  }
-  
-  .form {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-bottom: 25px;
-  }
-  
-  button {
-    align-self: center;
-  }
-  
-
-
-
-
-
-
-
-/* 
-.mainContainer
-{
-    height: 90%;
-    width: 60vw;
-
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
 }
 
-.title
-{
-    color: var(--text);
-    position: relative; 
-    text-align: center;
-    font-size: 50px;
-    margin-bottom: 6.5%;
-}
 
-.title:after 
+.warningText
 {
-    position: absolute;
-    content: '';
-    height: 2px;
-    bottom: -25px; 
-    background: var(--gray);
-    margin: 0 auto;
-    left: 0;
-    right: 0;
-    width: 35%;
-    transition: 0.5s;
- }
-  
-.title:hover:after {
-    width: 100%;
-    background: var(--green);
+    color: var(--red);
 }
- */

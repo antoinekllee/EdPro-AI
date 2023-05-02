@@ -31,12 +31,13 @@
 
 .title:hover:after {
     width: 100%;
-    background: var(--green);
+    background: var(--blue);
 }
 
 .mindmapContainer {
-    width: 800px;
-    height: 500px;
+    width: 100%;
+    /* height: 500px; */
+    aspect-ratio: 1.6;
     border: 2px solid black;
     border-radius: 4px;
 }
@@ -47,4 +48,4 @@
     border: 2px solid black;
     border-radius: 4px;
     position: relative;
-  }
+}

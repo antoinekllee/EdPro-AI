@@ -4,7 +4,7 @@ import * as FaIcons from "react-icons/fa"
 
 import UserContext from '../store/UserContext';
 
-import Title from '../components/Title';
+import Logo from '../components/Logo';
 import classes from './LoginPage.module.css'
 
 function LoginPage (props)
@@ -42,7 +42,7 @@ function LoginPage (props)
 
 return <div>
         <div className={classes.mainContainer}>
-            <Title />
+            <Logo />
             <p>Login</p>
             <form onSubmit={login} className={classes.form}>
                 <input type="text" placeholder='Username' required ref={usernameRef}></input>

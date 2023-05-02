@@ -43,7 +43,7 @@ const mentorReport = async(req, res) =>
         const openai = new OpenAIApi(configuration);
 
         const response = await openai.createChatCompletion ({
-            model: "gpt-3.5-turbo",
+            model: "gpt-4",
             messages: [
                 {role: "system", content: systemMessage},
                 {role: "user", content: exampleRequest},
@@ -67,4 +67,75 @@ const mentorReport = async(req, res) =>
     }
 }
 
-module.exports = { mentorReport }; 
+const mindmap = async(req, res) => 
+{
+    try 
+    {
+        const { input } = req.body;
+
+        if (!input)
+            return res.status (400).json ({ status: "ERROR", message: "Input is required" });
+        
+        const systemMessage = `You take a list of words or ideas and create a mindmap. Output mindmaps in markdown to be displayed using markmap.js. You may use Latex notation for any mathematical equations you want to include.
+
+        Here is example markdown for markmap: 
+        # markmap
+        
+        ## Links
+        
+        - <https://markmap.js.org/>
+        - [GitHub](https://github.com/gera2ld/markmap)
+        
+        ## Related Projects
+        
+        - [coc-markmap](https://github.com/gera2ld/coc-markmap)
+        - [gatsby-remark-markmap](https://github.com/gera2ld/gatsby-remark-markmap)
+        
+        ## Features
+        
+        - links
+        - **strong** ~~del~~ *italic* ==highlight==
+        - multiline
+          text
+        - \`inline code\`
+        -
+            \`\`\`js
+            console.log('code block');
+            \`\`\`
+        - Katex
+          - $x = {-b \pm \sqrt{b^2-4ac} \over 2a}$
+          - [More Katex Examples](#?d=gist:af76a4c245b302206b16aec503dbe07b:katex.md)
+        - Now we can wrap very very very very long text based on \`maxWidth\` option.`;
+
+        const configuration = new Configuration({
+            apiKey: OPENAI_KEY,
+        });
+
+        const openai = new OpenAIApi(configuration);
+
+        const response = await openai.createChatCompletion ({
+            model: "gpt-4",
+            messages: [
+                {role: "system", content: systemMessage},
+                {role: "user", content: input}
+            ],
+            temperature: 0.7,
+            max_tokens: 2000
+        });
+
+        const mindmap = response.data.choices[0].message.content; 
+
+        console.log ("Finished generating"); 
+
+        res.status (200).json ({ status: "OK", message: "Finished generating mindmap markdown", mindmap });
+    }
+    catch (error)
+    {
+        console.error (error); 
+        res.status (500).json ({ status: "ERROR", message: "Server error" }); 
+    }
+}
+
+
+
+module.exports = { mentorReport, mindmap }; 

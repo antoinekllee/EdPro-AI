@@ -3,7 +3,7 @@ import React, { useRef, useContext } from 'react';
 import * as FaIcons from "react-icons/fa"
 
 import UserContext from '../store/UserContext';
-import Title from '../components/Title';
+import Title from '../components/Logo';
 
 import classes from './LoginPage.module.css'
 

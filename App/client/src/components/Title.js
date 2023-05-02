@@ -1,13 +1,11 @@
 import classes from './Title.module.css'
 
-// import * as FaIcons from "react-icons/fa"
-import logo from '../assets/logo.png'
+import * as FaIcons from "react-icons/fa"
 
 function Title (props)
 {
     return <div>
-        <h1 className={classes.title}>Nexus<div className={classes.logoWrapper}><img src={logo} alt="Logo" className={classes.logo} /></div></h1>
-        {/* <h1 className={classes.title}>Nexus<img src={logo} alt="Logo" className={classes.logo} /></h1> */}
+        <h1 className={classes.title}>{props.text}<FaIcons.FaPenFancy className={classes.titleIcon} /></h1>
     </div>; 
 }
 

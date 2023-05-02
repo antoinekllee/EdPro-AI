@@ -5,7 +5,7 @@ import * as AiIcons from "react-icons/ai"
 
 import UserContext from '../store/UserContext';
 
-import Title from '../components/Title';
+import Title from '../components/Logo';
 
 import classes from './LandingPage.module.css'
 

@@ -8,14 +8,23 @@ const MarkmapComponent = ({ markdown, options }) => {
     const svgRef = useRef();
     const markmapInstanceRef = useRef(null);
 
+    const normalizeMarkdown = (markdown) => {
+        return markdown
+            .split('\n')
+            .map((line) => line.replace(/^(\s*)-\s*/, '$1- '))
+            .join('\n');
+    };
+    
+
     useEffect(() => {
         const transformer = new Transformer();
-        const { root, features } = transformer.transform(markdown);
+        const normalizedMarkdown = normalizeMarkdown(markdown);
+        const { root, features } = transformer.transform(normalizedMarkdown);
         const { styles, scripts } = transformer.getUsedAssets(features);
-
+    
         if (styles) loadCSS(styles);
         if (scripts) loadJS(scripts, { getMarkmap: () => Markmap });
-
+    
         const svgEl = d3.select(svgRef.current);
         svgEl.selectAll("*").remove();
         if (!markmapInstanceRef.current) {
@@ -24,6 +33,7 @@ const MarkmapComponent = ({ markdown, options }) => {
             markmapInstanceRef.current.setData(root, options);
         }
     }, [markdown, options]);
+    
 
     const zoomIn = () => {
         if (markmapInstanceRef.current) {
@@ -57,15 +67,16 @@ const MarkmapComponent = ({ markdown, options }) => {
     //   };
 
     return (
-        <>
+        <div className={classes.markmapContainer}>
             <svg ref={svgRef} style={{ width: "100%", height: "100%" }} />
             <div className={classes.buttonGroup}>
                 <button onClick={zoomIn}>+</button>
                 <button onClick={zoomOut}>-</button>
                 {/* <button onClick={toggleFullscreen}>Fullscreen</button> */}
             </div>
-        </>
+        </div>
     );
+    
 };
 
 export default MarkmapComponent;

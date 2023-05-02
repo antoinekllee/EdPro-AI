@@ -34,12 +34,12 @@
   
 .title:hover:after {
     width: 100%;
-    background: var(--green);
+    background: var(--blue);
  }
 
 .icon
 {
-    color: var(--green);
+    color: var(--blue);
     margin-left: 20px;
     width: 40px;
     height: 40px;
