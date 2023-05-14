@@ -24,9 +24,3 @@ Nexus is built using the MERN stack, which includes MongoDB, Express.js, React.j
 ## License 📄
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
-
-## Acknowledgements 🙌
-
-- 🧠 [OpenAI](https://www.openai.com/) for providing the AI technology that powers Nexus.
-- 🛠️ All developers and contributors who have helped shape the MERN stack and related libraries.
-- 👩‍🏫👨‍🏫 All educators and students who inspire us to create better learning experiences every day!
