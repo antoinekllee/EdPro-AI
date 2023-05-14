@@ -1,0 +1,13 @@
+.strandContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    flex-basis: 45%;
+    box-sizing: border-box;
+}
+
+.strandContainer input[type="text"] {
+    margin-right: 5px;
+    width: 200px;
+    height: 40px;
+}

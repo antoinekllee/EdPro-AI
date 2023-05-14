@@ -12,6 +12,7 @@ import SignupPage from "../pages/SignupPage";
 import MentorReportPage from "../pages/MentorReportPage";
 import Dashboard from '../pages/Dashboard';
 import MindmapPage from '../pages/MindmapPage';
+import CurriculumForm from '../pages/CurriculumForm';
 // import QuestionPage from '../pages/QuestionPage';
 
 // import NotFound from "../pages/NotFound";
@@ -57,8 +58,7 @@ function AnimatedRoutes()
                     <Route path="/" element={<Dashboard fade={fade} />} />
                     <Route path="/mentor-report" element={<MentorReportPage fade={fade} />} />
                     <Route path="/mindmap" element={<MindmapPage fade={fade} />} />
-                    {/* <Route path="/" element={<FormPage fade={fade} />} /> */}
-                    {/* <Route path="/questions" element={<QuestionPage fade={fade} />} /> */}
+                    <Route path="/curriculum" element={<CurriculumForm fade={fade} />} />
                     <Route path="*" element={<Dashboard fade={fade} />} />
                 </Routes>
             </motion.div>

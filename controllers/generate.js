@@ -1,8 +1,29 @@
 require('dotenv').config() // stores all key value pairs in dotenv in process.env
 const { Configuration, OpenAIApi } = require("openai");
-const { OPENAI_KEY } = process.env; 
+const { OPENAI_KEY } = process.env;
 
-const promptBuilder = require("../api/promptBuilder");
+const mentorReportPrompt = require("../api/mentorReportPrompt");
+const mindmapPrompt = require("../api/mindmapPrompt");
+
+const generateAIResponse = async (systemPrompt, userInput, additionalParams = {}) => {
+    const configuration = new Configuration({
+        apiKey: OPENAI_KEY,
+    });
+
+    const openai = new OpenAIApi(configuration);
+
+    const response = await openai.createChatCompletion({
+        model: "gpt-4",
+        messages: [
+            {role: "system", content: systemPrompt},
+            ...userInput,
+        ],
+        temperature: 0.7,
+        max_tokens: additionalParams.maxTokens || 2000
+    });
+
+    return response.data.choices[0].message.content;
+};
 
 // EXAMPLE PAYLOAD
 // {
@@ -13,129 +34,55 @@ const promptBuilder = require("../api/promptBuilder");
 //     "template": "1.\nCommand Term: Describe\nMarks: 2\n\n2.\nCommand Term: Outline\nMarks: 2\n\n3.\nCommand Term: Define\nMarks: 2\n\n4.\nCommand Term: Describe\nMarks: 3\n\n5.\nCommand Term: Distinguish\nMarks: 3\n\n6.\nCommand Term: Outline\nMarks: 2\n\n7.\nCommand Term: Describe\nMarks: 3\n\n8.\nCommand Term: Identify\nMarks: 1\n\n9.\nCommand Term: Explain\nMarks: 4\n\n10.\nCommand Term: Outline\nMarks: 2",
 //     "examples": "1. One of the functions of an operating system is memory management. Describe how this function prevents the system from crashing when more than one program is run at the same time. [2]\n\n2. Outline what is meant by virtual memory. [2]\n\n3. Define polling. [2]\n\n4. Describe one way that the operating system of a networked workstation hides the complexity of the network from the user. [3]\n\n5. Distinguish between the use of time slicing and priorities in the scheduling of processes by an operating system. [3]\n\n6. Outline the function of an interrupt. [2]\n\n7. Describe how an operating system uses paging when running a program. [3]\n\n8. Identify one advantage of using a dedicated operating system on a mobile phone. [1]\n\n9. Explain two functions that an operating system needs to perform in relation to multitasking. [4]\n\n10. Outline why single processor computers may not be able to render 3D graphics effectively. [2]"
 // }
-
-const mentorReport = async(req, res) => 
-{
-    try 
-    {
+const mentorReport = async(req, res) => {
+    try {
         const { studentName, casExperiences, skills } = req.body;
 
         if (!studentName || !casExperiences || !skills)
             return res.status (400).json ({ status: "ERROR", message: "All fields are required" });
-        
-        const systemMessage = promptBuilder.buildMentorReportPrompt ();
-        const request = `Name: ${studentName}\nCAS Experiences: ${casExperiences}\nSkills and Qualities: ${skills}`
 
-        const exampleRequest = `Name: John\nCAS Experiences: Project 0, Badminton Team, Coding for Good, Coding Spring Hackathon, Circling Day, Music and Dementia, Environmentally Conscious Transportation Choices, Time Management\nSkills and Qualities: Time Management, Leadership, Problem Solving, Adaptability, Empathy, Initiative, Ethical Decision Making`
-        const example = `John is an intelligent and kind-hearted student who has made significant contributions to his school and community through a wide range of creative activities over the past 18 months. He has balanced his academic pursuits, athletic endeavors, and service work while consistently striving for personal growth and making a positive impact on those around him.
-        One of John's most notable accomplishments is his participation in "Project 0," a group-based project exploring the mathematical principles behind social distancing. Through this project, John deepened his understanding of mathematical concepts and developed valuable collaborative skills.
-        John has also been a dedicated member of his school's badminton team, effectively balancing the demands of rigorous training with his other responsibilities. Furthermore, as the Co-chair and Communication Officer for the service group "Coding For Good," he has used his technical skills to make a positive impact on his local community.
-        Some key moments that shaped John's experiences include the "Coding Spring" hackathon, the intense SAS badminton match, and the Circling day during his project week, where the group persevered through challenging weather and ultimately enjoyed their time together.
-        John's participation in various group activities has allowed him to develop project planning and management skills, identify his own strengths and areas for growth, and improve his leadership abilities. One of his most meaningful projects, "Music and Dementia," involved creating a website for music therapy targeted at dementia patients. John believes this project had a significant impact on the community as they developed a working prototype and learned the importance of listening to the client's needs.
-        Furthermore, John has been environmentally conscious during project weeks, opting for public transport, cycling, and walking instead of taking cabs. He recognizes the ethical and environmental implications of his choices and is dedicated to making a positive impact on the world around him.
-        One of John's most challenging goals has been maintaining his commitments to the CAS program, which has required effective scheduling and prioritization of his time. As a result, he has developed valuable time management skills.
-        In conclusion, John is a well-rounded and accomplished student deeply committed to making a positive impact on the world around him. His diverse experiences in academics, athletics, and service have contributed to his personal growth and the lives of those around him. As John moves on to university next year, we are confident that he will be a great asset to his future institution, continuing to make a positive impact and demonstrating the same dedication and enthusiasm he has shown throughout his CAS program.`
+        const { systemPrompt, exampleInput, exampleOutput } = mentorReportPrompt;
+        const request = `Name: ${studentName}\nCAS Experiences: ${casExperiences}\nSkills and Qualities: ${skills}`;
+        const userInput = [
+            {role: "user", content: exampleInput},
+            {role: "assistant", content: exampleOutput},
+            {role: "user", content: request}
+        ];
 
-        const configuration = new Configuration({
-            apiKey: OPENAI_KEY,
-        });
+        const mentorReport = await generateAIResponse(systemPrompt, userInput, { maxTokens: 1000 });
 
-        const openai = new OpenAIApi(configuration);
-
-        const response = await openai.createChatCompletion ({
-            model: "gpt-4",
-            messages: [
-                {role: "system", content: systemMessage},
-                {role: "user", content: exampleRequest},
-                {role: "assistant", content: example},
-                {role: "user", content: request}
-            ],
-            temperature: 0.7,
-            max_tokens: 1000
-        });
-
-        const mentorReport = response.data.choices[0].message.content; 
-
-        console.log ("Finished generating"); 
+        console.log ("Finished generating");
 
         res.status (200).json ({ status: "OK", message: "Finished writing mentor report", mentorReport });
     }
-    catch (error)
-    {
-        console.error (error); 
-        res.status (500).json ({ status: "ERROR", message: "Server error" }); 
+    catch (error) {
+        console.error (error);
+        res.status (500).json ({ status: "ERROR", message: "Server error" });
     }
 }
 
-const mindmap = async(req, res) => 
-{
-    try 
-    {
+const mindmap = async(req, res) => {
+    try {
         const { input } = req.body;
 
         if (!input)
             return res.status (400).json ({ status: "ERROR", message: "Input is required" });
-        
-        const systemMessage = `You take a list of words or ideas and create a mindmap. Output mindmaps in markdown to be displayed using markmap.js. You may use Latex notation for any mathematical equations you want to include.
 
-        Here is example markdown for markmap: 
-        # markmap
-        
-        ## Links
-        
-        - <https://markmap.js.org/>
-        - [GitHub](https://github.com/gera2ld/markmap)
-        
-        ## Related Projects
-        
-        - [coc-markmap](https://github.com/gera2ld/coc-markmap)
-        - [gatsby-remark-markmap](https://github.com/gera2ld/gatsby-remark-markmap)
-        
-        ## Features
-        
-        - links
-        - **strong** ~~del~~ *italic* ==highlight==
-        - multiline
-          text
-        - \`inline code\`
-        -
-            \`\`\`js
-            console.log('code block');
-            \`\`\`
-        - Katex
-          - $x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}$
-          - [More Katex Examples](#?d=gist:af76a4c245b302206b16aec503dbe07b:katex.md)
-        - Now we can wrap very very very very long text based on \`maxWidth\` option.`;
+        const { systemPrompt } = mindmapPrompt;
+        const userInput = [
+            {role: "user", content: input}
+        ];
 
-        const configuration = new Configuration({
-            apiKey: OPENAI_KEY,
-        });
+        const mindmap = await generateAIResponse(systemPrompt, userInput);
 
-        const openai = new OpenAIApi(configuration);
-
-        const response = await openai.createChatCompletion ({
-            model: "gpt-4",
-            messages: [
-                {role: "system", content: systemMessage},
-                {role: "user", content: input}
-            ],
-            temperature: 0.7,
-            max_tokens: 2000
-        });
-
-        const mindmap = response.data.choices[0].message.content; 
-
-        console.log ("Finished generating"); 
+        console.log ("Finished generating");
 
         res.status (200).json ({ status: "OK", message: "Finished generating mindmap markdown", mindmap });
     }
-    catch (error)
-    {
-        console.error (error); 
-        res.status (500).json ({ status: "ERROR", message: "Server error" }); 
+    catch (error) {
+        console.error (error);
+        res.status (500).json ({ status: "ERROR", message: "Server error" });
     }
 }
 
-
-
-module.exports = { mentorReport, mindmap }; 
+module.exports = { mentorReport, mindmap };

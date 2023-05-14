@@ -23,7 +23,7 @@ function Dashboard(props) {
                     />
                     <Button
                         className={classes.twoColumnButton}
-                        onClick={() => fade("/syllabus")}
+                        onClick={() => fade("/curriculum")}
                         IconComponent={FaIcons.FaKeyboard}
                         text="Curriculum Design"
                     />
