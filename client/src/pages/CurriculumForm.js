@@ -73,40 +73,37 @@ function CurriculumForm(props) {
             method: "POST",
             body: JSON.stringify(payload),
         });
-
+        
         const data = await response.json();
         console.log(data);
         
-        // Set test curriculum items for now
-        const testCurriculumItems = [
-            {
-                week: "Week 1",
-                conceptualUnderstanding: "CU 1",
-                benchmark: "B 1",
-                conceptualQuestion: "CQ 1",
-            },
-            {
-                week: "Week 2",
-                conceptualUnderstanding: "CU 2",
-                benchmark: "B 2",
-                conceptualQuestion: "CQ 2",
-            },
-            {
-                week: "Week 3",
-                conceptualUnderstanding: "CU 3",
-                benchmark: "B 3",
-                conceptualQuestion: "CQ 3",
-            },
-        ];
-
-        setCurriculumItems(testCurriculumItems);
+        // Break the curriculum string into an array, using two newlines as the separator
+        const curriculumBlocks = data.curriculum.split('\n\n');
+        
+        // Process the blocks into the desired format
+        const curriculumItems = curriculumBlocks.map(block => {
+            const lines = block.split('\n');
+            const week = lines[0].split(': ')[1]; // split by the first colon and take the second part
+            const conceptualUnderstanding = lines[1].split(': ')[1]; // split by the first colon and take the second part
+            const benchmark = lines[2].split(': ')[1]; // split by the first colon and take the second part
+            const conceptualQuestion = lines[3].split(': ')[1]; // split by the first colon and take the second part
+        
+            return {
+                week,
+                conceptualUnderstanding,
+                benchmark,
+                conceptualQuestion,
+            };
+        });
+        
+        setCurriculumItems(curriculumItems);        
 
         setIsLoading(false);
     };
 
     return (
         <div className={classes.mainContainer}>
-            <Title text="Curriculum Form" />
+            <Title text="Curriculum Designer" />
             <form onSubmit={handleSubmit} className={classes.form}>
                 <div className={classes.formContent}>
                     <div className={classes.formLeft}>
