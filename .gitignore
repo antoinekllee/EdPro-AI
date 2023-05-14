@@ -1,5 +1,3 @@
-/App/node_modules
-/App/.env
-
+node_modules
+.env
 .DS_STORE
-/App/.DS_STORE
