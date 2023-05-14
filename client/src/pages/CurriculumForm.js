@@ -5,20 +5,22 @@ import Title from "../components/Title";
 import LoadingContext from "../store/LoadingContext";
 import Button from "../components/Button";
 import Strand from "../components/Strand";
+import CurriculumItem from "../components/CurriculumItem";
 
 function CurriculumForm(props) {
     const { setIsLoading } = useContext(LoadingContext);
 
     const [unitTitle, setUnitTitle] = useState("");
-    const [level, setLevel] = useState(1);
+    const [weeks, setWeeks] = useState(1);
     const [strands, setStrands] = useState([]);
+    const [curriculumItems, setCurriculumItems] = useState([]);
 
     const handleInputChange = (e) => {
         setUnitTitle(e.target.value);
     };
 
-    const handleLevelChange = (e) => {
-        setLevel(e.target.value);
+    const handleWeeksChange = (e) => {
+        setWeeks(e.target.value);
     };
 
     const addStrand = () => {
@@ -37,25 +39,67 @@ function CurriculumForm(props) {
         setStrands(newStrands);
     };
 
+    const addCurriculumItem = () => {
+        setCurriculumItems([
+            ...curriculumItems,
+            {
+                week: "",
+                conceptualUnderstanding: "",
+                benchmark: "",
+                conceptualUnderstanding: "",
+            },
+        ]);
+    };
+
+    const removeCurriculumItem = (index) => {
+        const newCurriculumItems = [...curriculumItems];
+        newCurriculumItems.splice(index, 1);
+        setCurriculumItems(newCurriculumItems);
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         setIsLoading(true);
 
         console.log("Unit Title:", unitTitle);
-        console.log("Level:", level);
+        console.log("Weeks:", weeks);
         console.log("Strands:", strands);
 
-        const payload = { unitTitle, level, strands };
+        const payload = { unitTitle, weeks, strands };
 
-        // const response = await fetch("/submit/curriculumForm", {
-        //     headers: { "Content-Type": "application/json" },
-        //     method: "POST",
-        //     body: JSON.stringify(payload),
-        // });
+        const response = await fetch("/generate/curriculum", {
+            headers: { "Content-Type": "application/json" },
+            method: "POST",
+            body: JSON.stringify(payload),
+        });
 
-        // const data = await response.json();
-        // console.log(data);
+        const data = await response.json();
+        console.log(data);
+        
+        // Set test curriculum items for now
+        const testCurriculumItems = [
+            {
+                week: "Week 1",
+                conceptualUnderstanding: "CU 1",
+                benchmark: "B 1",
+                conceptualQuestion: "CQ 1",
+            },
+            {
+                week: "Week 2",
+                conceptualUnderstanding: "CU 2",
+                benchmark: "B 2",
+                conceptualQuestion: "CQ 2",
+            },
+            {
+                week: "Week 3",
+                conceptualUnderstanding: "CU 3",
+                benchmark: "B 3",
+                conceptualQuestion: "CQ 3",
+            },
+        ];
+
+        setCurriculumItems(testCurriculumItems);
 
         setIsLoading(false);
     };
@@ -73,20 +117,22 @@ function CurriculumForm(props) {
                             onChange={handleInputChange}
                             placeholder="Unit Title"
                         />
-                        <p>Level</p>
+                        <p>Weeks</p>
                         <input
                             type="number"
                             min="1"
                             max="10"
-                            value={level}
-                            onChange={handleLevelChange}
+                            value={weeks}
+                            onChange={handleWeeksChange}
                         />
                         <p>Strands</p>
                         {strands.map((strand, index) => (
                             <Strand
                                 key={index}
                                 value={strand.title}
-                                onChange={(value) => handleStrandChange(index, value)}
+                                onChange={(value) =>
+                                    handleStrandChange(index, value)
+                                }
                                 onRemove={() => removeStrand(index)}
                             />
                         ))}
@@ -106,7 +152,20 @@ function CurriculumForm(props) {
                         />
                     </div>
                     <div className={classes.outputContent}>
-                        
+                        {curriculumItems.map((curriculumItem, index) => (
+                            <CurriculumItem
+                                key={index}
+                                index={index}
+                                item={curriculumItem}
+                                onRemove={() => removeCurriculumItem(index)}
+                            />
+                        ))}
+                        <Button
+                            IconComponent={FaIcons.FaPlus}
+                            onClick={addCurriculumItem}
+                            text="Add Curriculum Item"
+                            buttonWidth="250px"
+                        />
                     </div>
                 </div>
             </form>

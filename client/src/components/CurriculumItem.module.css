@@ -1,0 +1,32 @@
+.curriculumItem {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: var(--gray);
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.removeButton {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.field label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    padding: 5px;
+}
+
+.field input {
+    background-color: var(--bg);
+    width: 80%;
+}

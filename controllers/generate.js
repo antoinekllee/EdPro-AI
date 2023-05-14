@@ -4,6 +4,7 @@ const { OPENAI_KEY } = process.env;
 
 const mentorReportPrompt = require("../api/mentorReportPrompt");
 const mindmapPrompt = require("../api/mindmapPrompt");
+const curriculumPrompt = require("../api/curriculumPrompt");
 
 const generateAIResponse = async (systemPrompt, userInput, additionalParams = {}) => {
     const configuration = new Configuration({
@@ -85,4 +86,41 @@ const mindmap = async(req, res) => {
     }
 }
 
-module.exports = { mentorReport, mindmap };
+const curriculum = async(req, res) => {
+    try {
+        const { unitTitle, weeks, strands } = req.body;
+
+        if (!unitTitle || !weeks || !strands)
+            return res.status (400).json ({ status: "ERROR", message: "All fields are required" });
+
+        const { systemPrompt, exampleInput, exampleOutput } = curriculumPrompt;
+
+        let request = `A maths teacher is creating a unit:\nUnit title: ${unitTitle}\nLength of Unit: ${weeks} weeks\n`
+
+        // Loop through strands which is an array of strings and add them to the request
+        strands.forEach((strand, index) => {
+            request += `Strand ${index + 1}: ${strand}\n`
+        });
+
+        request += `Suggest an ${weeks} weeks unit planner, that includes conceptual understandings, benchmarks, and conceptual questions in each part.`
+
+        const userInput = [
+            {role: "user", content: exampleInput},
+            {role: "assistant", content: exampleOutput},
+            {role: "user", content: request}
+        ];
+
+        const curriculum = await generateAIResponse(systemPrompt, userInput, { maxTokens: 2000 });
+
+        console.log ("Finished generating");
+
+        res.status (200).json ({ status: "OK", message: "Finished writing curriculum", curriculum });
+    }
+    catch (error) {
+        console.error (error);
+        res.status (500).json ({ status: "ERROR", message: "Server error" });
+    }
+}
+
+
+module.exports = { mentorReport, mindmap, curriculum };
