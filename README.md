@@ -1,4 +1,4 @@
-# Nexus 📚🧠🚀
+# EdPro AI 📚🧠🚀
 
 Nexus is an all-in-one AI-powered educational tool that supports educators by leveraging GPT technology to create interactive, customizable, and engaging learning experiences for students! 🌟👩‍🏫👨‍🏫
 
