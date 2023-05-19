@@ -1,6 +1,6 @@
 # EdPro AI 📚🧠🚀
 
-Nexus is an all-in-one AI-powered educational tool that supports educators by leveraging GPT technology to create interactive, customizable, and engaging learning experiences for students! 🌟👩‍🏫👨‍🏫
+EdPro is an all-in-one AI-powered educational tool that supports educators by leveraging GPT technology to create interactive, customizable, and engaging learning experiences for students! 🌟👩‍🏫👨‍🏫
 
 ## Features 🎉
 
@@ -13,13 +13,13 @@ Nexus is an all-in-one AI-powered educational tool that supports educators by le
 - 📝 **Mentor Reports**: Write helpful mentor reports for students with ease.
 
 ## Tech Stack 🛠️
-Nexus is built using the MERN stack, which includes MongoDB, Express.js, React.js, and Node.js. The AI elements of Nexus are powered by OpenAI's API and prompt engineering. 
+EdPro AI is built using the MERN stack, which includes MongoDB, Express.js, React.js, and Node.js. The AI elements are powered by OpenAI's API and prompt engineering. 
 
 - **MongoDB**: A powerful database to store user data and generated lesson content.
 - **Express.js**: A minimalist web framework for Node.js, it acts as the server to interact with the database.
 - **React.js**: A JavaScript library for building the user interface with a clean, minimalistic and easy-to-use design.
 - **Node.js**: A JavaScript runtime built on Chrome's V8 JavaScript engine.
-- **OpenAI API**: Powers the AI functionalities of Nexus. Uses prompt engineering to achieve targeted outputs.
+- **OpenAI API**: Powers the AI functionalities of EdPro. Uses prompt engineering to achieve targeted outputs.
 
 ## License 📄
 
