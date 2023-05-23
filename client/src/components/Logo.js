@@ -6,7 +6,7 @@ import logo from '../assets/logo.png'
 function Logo (props)
 {
     return <div>
-        <h1 className={classes.title}>Nexus<div className={classes.logoWrapper}><img src={logo} alt="Logo" className={classes.logo} /></div></h1>
+        <h1 className={classes.title}>EdPro AI<div className={classes.logoWrapper}><img src={logo} alt="Logo" className={classes.logo} /></div></h1>
     </div>; 
 }
 

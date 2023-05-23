@@ -42,7 +42,7 @@ function Navbar(props)
 
     return (<div className={classes.navContainer}>
         <div className={classes.navLeft}>
-            <h3 className={classes.logoText} onClick={() => fade('/')}><img src={logo} alt="Logo" className={classes.logo} />Nexus</h3>
+            <h3 className={classes.logoText} onClick={() => fade('/')}><img src={logo} alt="Logo" className={classes.logo} />EdPro AI</h3>
             <IconButton Icon={FaIcons.FaHome} onClick={() => console.log ("Home")} />
             <IconButton Icon={FaIcons.FaInfo} onClick={() => console.log ("INFO")} />
             <IconButton Icon={FaIcons.FaCog} onClick={() => console.log ("SETTINGS")} />

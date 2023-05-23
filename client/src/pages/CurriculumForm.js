@@ -46,7 +46,7 @@ function CurriculumForm(props) {
                 week: "",
                 conceptualUnderstanding: "",
                 benchmark: "",
-                conceptualUnderstanding: "",
+                conceptualQuestion: "",
             },
         ]);
     };

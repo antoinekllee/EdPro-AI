@@ -12,7 +12,7 @@ function Dashboard(props) {
 
     return (
         <div className={classes.container}>
-            <Title text="Nexus" />
+            <Title text="EdPro AI" />
             <div>
                 <div className={classes.buttonContainer}>
                     <Button
