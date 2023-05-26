@@ -41,9 +41,9 @@
 .logo
 {
     color: var(--blue);
-    margin-right: 17px;
-    width: 40px;
-    height: 40px;
+    margin-right: 10px;
+    width: 45px;
+    height: 45px;
 }
 
 .navLeft, .navRight

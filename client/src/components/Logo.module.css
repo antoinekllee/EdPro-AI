@@ -28,15 +28,14 @@
     display: inline-block;
     width: 45px;
     height: 45px;
-    border-radius: 100%;
     overflow: hidden;
     position: relative;
     margin-left: 20px;
 }
 
 .logo {
-    width: 55px;
-    height: 55px;
+    width: 70px;
+    height: 70px;
     object-fit: cover;
     object-position: center;
     position: absolute;
