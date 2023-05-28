@@ -84,29 +84,31 @@ const mindmap = async(req, res) => {
 
 const curriculum = async(req, res) => {
     try {
-        const { unitTitle, weeks, strands } = req.body;
+        const { subject, unitTitle, weeks, strands } = req.body;
 
-        if (!unitTitle || !weeks || !strands)
+        if (!subject || !unitTitle || !weeks || !strands)
             return res.status (400).json ({ status: "ERROR", message: "All fields are required" });
 
-        const { systemPrompt, exampleInput, exampleOutput } = curriculumPrompt;
+        let promptMessages = curriculumPrompt.prompt.split("<<MESSAGE_SEPARATOR>>");
 
-        let request = `A maths teacher is creating a unit:\nUnit title: ${unitTitle}\nLength of Unit: ${weeks} weeks\n`
-
-        // Loop through strands which is an array of strings and add them to the request
-        strands.forEach((strand, index) => {
-            request += `Strand ${index + 1}: ${strand}\n`
-        });
-
-        request += `Suggest an ${weeks} weeks unit planner, that includes conceptual understandings, benchmarks, and conceptual questions in each part.`
-
-        const userInput = [
-            {role: "user", content: exampleInput},
-            {role: "assistant", content: exampleOutput},
-            {role: "user", content: request}
+        let messages = [
+            { "role": "system", "content": promptMessages[0] }
         ];
 
-        const curriculum = await generateAIResponse(systemPrompt, userInput, { maxTokens: 2000 });
+        for (let i = 1; i < promptMessages.length; i++) {
+            let role = (i % 2 == 1) ? "user" : "assistant";
+            messages.push({ "role": role, "content": promptMessages[i] });
+        }
+
+        const request = `A ${subject} teacher is creating a unit:\nUnit title: ${unitTitle}\nLength of units: ${weeks} weeks\n${strands}\nSuggest a ${weeks} week unit planner, that includes conceptual understandings, benchmarks, and conceptual questions in each part.`;
+        messages.push({ "role": "user", "content": request });
+
+        console.log (messages);
+
+        console.log (request)
+
+        const curriculum = await generateAIResponse(messages, "gpt-3.5-turbo", { maxTokens: 1000 });
+
 
         console.log ("Finished generating");
 

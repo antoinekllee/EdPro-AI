@@ -14,6 +14,7 @@ function CurriculumForm(props) {
     const [weeks, setWeeks] = useState(1);
     const [strands, setStrands] = useState([]);
     const [curriculumItems, setCurriculumItems] = useState([]);
+    const [subject, setSubject] = useState(""); // New input for subject
 
     const handleInputChange = (e) => {
         setUnitTitle(e.target.value);
@@ -21,6 +22,10 @@ function CurriculumForm(props) {
 
     const handleWeeksChange = (e) => {
         setWeeks(e.target.value);
+    };
+
+    const handleSubjectChange = (e) => {
+        setSubject(e.target.value);
     };
 
     const addStrand = () => {
@@ -57,6 +62,12 @@ function CurriculumForm(props) {
         setCurriculumItems(newCurriculumItems);
     };
 
+    const stringifyStrands = (strands) =>
+    {
+        return strands.map((strand, index) => `Strand ${index + 1}: ${strand.title}`).join("\n");
+      }
+      
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -64,9 +75,11 @@ function CurriculumForm(props) {
 
         console.log("Unit Title:", unitTitle);
         console.log("Weeks:", weeks);
-        console.log("Strands:", strands);
+        console.log("Strands:", stringifyStrands(strands));
+        console.log("Subject:", subject); // Log the subject input
 
-        const payload = { unitTitle, weeks, strands };
+        const payload = { subject, unitTitle, weeks, strands: stringifyStrands(strands) }; // Include subject in the payload
+        console.log(payload)
 
         const response = await fetch("/generate/curriculum", {
             headers: { "Content-Type": "application/json" },
@@ -96,7 +109,9 @@ function CurriculumForm(props) {
             };
         });
         
-        setCurriculumItems(curriculumItems);        
+        setCurriculumItems(curriculumItems);
+
+        
 
         setIsLoading(false);
     };
@@ -107,6 +122,13 @@ function CurriculumForm(props) {
             <form onSubmit={handleSubmit} className={classes.form}>
                 <div className={classes.formContent}>
                     <div className={classes.formLeft}>
+                        <p>Subject</p> {/* Add Subject input field */}
+                        <input
+                            type="text"
+                            value={subject}
+                            onChange={handleSubjectChange}
+                            placeholder="Subject"
+                        />
                         <p>Unit Title</p>
                         <input
                             type="text"
