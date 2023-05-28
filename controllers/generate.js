@@ -117,7 +117,7 @@ const curriculum = async(req, res) => {
             const curriculumBlocks = curriculum.split('\n\n');
                     
             // Process the blocks into the desired format
-            const curriculumItems = curriculumBlocks.map(block => {
+            const lessonItems = curriculumBlocks.map(block => {
                 const lines = block.split('\n');
                 const week = lines[0].split(': ')[1]; // split by the first colon and take the second part
                 const conceptualUnderstanding = lines[1].split(': ')[1]; // split by the first colon and take the second part
@@ -132,8 +132,8 @@ const curriculum = async(req, res) => {
                 };
             });
 
-            console.log (curriculumItems)
-            res.status (200).json ({ status: "OK", message: "Finished writing curriculum", curriculumItems });
+            console.log (lessonItems)
+            res.status (200).json ({ status: "OK", message: "Finished writing curriculum", lessonItems });
         }
         catch (error)
         {

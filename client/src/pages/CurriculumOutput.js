@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import classes from "./CurriculumOutput.module.css";
 import * as FaIcons from "react-icons/fa";
 import Button from "../components/Button";
-import CurriculumItem from "../components/CurriculumItem";
+import LessonItem from "../components/LessonItem";
 
 import LoadingContext from "../store/LoadingContext";
 
@@ -18,7 +18,7 @@ function CurriculumOutput(props) {
     const [weeks, setWeeks] = useState(1);
     const [strandsArr, setStrandsArr] = useState([]);
 
-    const [curriculumItems, setCurriculumItems] = useState([]);
+    const [lessonItems, setLessonItems] = useState([]);
 
     useEffect(() => {
         if (!state) {
@@ -40,6 +40,20 @@ function CurriculumOutput(props) {
         };
     }, [state, fade]);
 
+    const updateCurriculumsDb = async (lessonItems) => {
+        const { subject, unitTitle, weeks, strands } = state;
+        const payload = { subject, unitTitle, weeks, strands, lessonItems };
+
+        const response = await fetch("/curriculum/new", {
+            headers: { "Content-Type": "application/json" },
+            method: "POST",
+            body: JSON.stringify(payload),
+        });
+
+        const data = await response.json();
+        console.log(data);
+    };
+
     useEffect(() => {
         const generate = async () => {
             const { subject, unitTitle, weeks, strands } = state;
@@ -55,8 +69,9 @@ function CurriculumOutput(props) {
             console.log(data);
 
             if (isMountedRef.current && data.status === "OK") {
-                const { curriculumItems } = data;
-                setCurriculumItems(curriculumItems);
+                const { lessonItems } = data;
+                setLessonItems(lessonItems);
+                updateCurriculumsDb(lessonItems);
             }
             else 
             {
@@ -72,9 +87,9 @@ function CurriculumOutput(props) {
         
       }, [state, setIsLoading]);
 
-      const addCurriculumItem = () => {
-        setCurriculumItems([
-            ...curriculumItems,
+      const addLessonItem = () => {
+        setLessonItems([
+            ...lessonItems,
             {
                 week: "",
                 conceptualUnderstanding: "",
@@ -84,27 +99,27 @@ function CurriculumOutput(props) {
         ]);
     };
 
-    const removeCurriculumItem = (index) => {
-        const newCurriculumItems = [...curriculumItems];
-        newCurriculumItems.splice(index, 1);
-        setCurriculumItems(newCurriculumItems);
+    const removeLessonItem = (index) => {
+        const newLessonItems = [...lessonItems];
+        newLessonItems.splice(index, 1);
+        setLessonItems(newLessonItems);
     };
     return (
         <div className={classes.container}>
             <h1>Curriculum for {subject} - {unitTitle}</h1>
             <h2>{weeks} weeks</h2>
             {strandsArr.map((strand, index) => (<h4 key={index}>{strand}</h4>))}
-            {curriculumItems.map((curriculumItem, index) => (
-                <CurriculumItem
+            {lessonItems.map((lessonItem, index) => (
+                <LessonItem
                     key={index}
                     index={index}
-                    item={curriculumItem}
-                    onRemove={() => removeCurriculumItem(index)}
+                    item={lessonItem}
+                    onRemove={() => removeLessonItem(index)}
                 />
             ))}
             <Button
                 IconComponent={FaIcons.FaPlus}
-                onClick={addCurriculumItem}
+                onClick={addLessonItem}
                 text="Add Curriculum Item"
                 buttonWidth="250px"
             />

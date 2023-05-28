@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import * as FaIcons from "react-icons/fa";
-import classes from "./CurriculumItem.module.css";
-import IconButton from "../components/IconButton";
+import classes from "./LessonItem.module.css";
+import IconButton from "./IconButton";
+import Button from "./Button";
 
-function CurriculumItem({ item, onRemove }) {
+function LessonItem({ item, onRemove }) {
     const [week, setWeek] = useState(item.week);
     const [conceptualUnderstanding, setConceptualUnderstanding] = useState(item.conceptualUnderstanding);
     const [benchmark, setBenchmark] = useState(item.benchmark);
     const [conceptualQuestion, setConceptualQuestion] = useState(item.conceptualQuestion);
 
     return (
-        <div className={classes.curriculumItem}>
+        <div className={classes.lessonItem}>
             <div className={classes.removeButton}>
                 <IconButton Icon={FaIcons.FaMinus} onClick={onRemove} />
             </div>
@@ -50,8 +51,9 @@ function CurriculumItem({ item, onRemove }) {
                     placeholder="Conceptual Question"
                 />
             </div>
+            <Button text="Plan" buttonWidth="100px" />
         </div>
     );
 }
 
-export default CurriculumItem;
+export default LessonItem;
