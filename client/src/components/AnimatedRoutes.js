@@ -13,9 +13,7 @@ import MentorReportPage from "../pages/MentorReportPage";
 import Dashboard from '../pages/Dashboard';
 import MindmapPage from '../pages/MindmapPage';
 import CurriculumForm from '../pages/CurriculumForm';
-// import QuestionPage from '../pages/QuestionPage';
-
-// import NotFound from "../pages/NotFound";
+import CurriculumOutput from '../pages/CurriculumOutput'; 
 
 function AnimatedRoutes()
 {
@@ -43,8 +41,6 @@ function AnimatedRoutes()
     return (
         <div>
             {showNavbar && <Navbar fade={fade} />}  
-            {/* <Navbar fade={fade} /> */}
-            {/* <QuestionPage /> */}
             <motion.div 
                 initial={{ opacity: 0 }} 
                 animate={{ opacity: isFading ? 0 : 1 }} 
@@ -58,7 +54,8 @@ function AnimatedRoutes()
                     <Route path="/" element={<Dashboard fade={fade} />} />
                     <Route path="/mentor-report" element={<MentorReportPage fade={fade} />} />
                     <Route path="/mindmap" element={<MindmapPage fade={fade} />} />
-                    <Route path="/curriculum" element={<CurriculumForm fade={fade} />} />
+                    <Route path="/curriculum-form" element={<CurriculumForm fade={fade} />} />
+                    <Route path="/curriculum" element={<CurriculumOutput fade={fade} />} />
                     <Route path="*" element={<Dashboard fade={fade} />} />
                 </Routes>
             </motion.div>

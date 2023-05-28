@@ -44,7 +44,8 @@ const mentorReport = async(req, res) => {
         const request = `STUDENT NAME:\n${studentName}\n\nPERSONALITY: ${skills}\n\nCAS:\n${casExperiences}`;
         messages.push({ "role": "user", "content": request });
 
-        console.log (messages);
+        console.log ("Generating mentor report");
+        console.log (request);
 
         const mentorReport = await generateAIResponse(messages, "gpt-3.5-turbo", { maxTokens: 1000 });
 
@@ -103,16 +104,44 @@ const curriculum = async(req, res) => {
         const request = `A ${subject} teacher is creating a unit:\nUnit title: ${unitTitle}\nLength of units: ${weeks} weeks\n${strands}\nSuggest a ${weeks} week unit planner, that includes conceptual understandings, benchmarks, and conceptual questions in each part.`;
         messages.push({ "role": "user", "content": request });
 
-        console.log (messages);
-
-        console.log (request)
+        console.log ("Generating curriculum");
+        console.log (request);
 
         const curriculum = await generateAIResponse(messages, "gpt-3.5-turbo", { maxTokens: 1000 });
 
+        console.log (curriculum)
+
+        try
+        {
+            // Break the curriculum string into an array, using two newlines as the separator
+            const curriculumBlocks = curriculum.split('\n\n');
+                    
+            // Process the blocks into the desired format
+            const curriculumItems = curriculumBlocks.map(block => {
+                const lines = block.split('\n');
+                const week = lines[0].split(': ')[1]; // split by the first colon and take the second part
+                const conceptualUnderstanding = lines[1].split(': ')[1]; // split by the first colon and take the second part
+                const benchmark = lines[2].split(': ')[1]; // split by the first colon and take the second part
+                const conceptualQuestion = lines[3].split(': ')[1]; // split by the first colon and take the second part
+            
+                return {
+                    week,
+                    conceptualUnderstanding,
+                    benchmark,
+                    conceptualQuestion,
+                };
+            });
+
+            console.log (curriculumItems)
+            res.status (200).json ({ status: "OK", message: "Finished writing curriculum", curriculumItems });
+        }
+        catch (error)
+        {
+            console.error (error);
+            res.status (500).json ({ status: "ERROR", message: "Could not parse curriculum" });
+        }
 
         console.log ("Finished generating");
-
-        res.status (200).json ({ status: "OK", message: "Finished writing curriculum", curriculum });
     }
     catch (error) {
         console.error (error);
