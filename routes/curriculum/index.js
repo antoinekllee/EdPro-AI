@@ -4,6 +4,7 @@ const controller = require ("../../controllers/curriculum");
 const router = express.Router (); 
 
 router.get ("/", controller.getCurriculums);
+router.get ("/getById/:id", controller.getCurriculumById);
 router.post ("/new", controller.newCurriculum); 
 
 module.exports = router; 

@@ -28,6 +28,41 @@ const getCurriculums = async(req, res) =>
     }
 }
 
+const getCurriculumById = async(req, res) =>
+{
+    try
+    {
+        const userId = req.session.userId; 
+
+        if (!userId)
+            return res.status(400).json({ 
+                status: "ERROR", 
+                message: "User not logged in" 
+            });
+
+        const curriculum = await curriculumModel.findOne({ user: userId, _id: req.params.id });
+
+        if (!curriculum)
+            return res.status(400).json({ 
+                status: "ERROR", 
+                message: "Curriculum not found" 
+            });
+
+        const lessons = await lessonModel.find({ curriculum: curriculum._id });
+
+        res.status(200).json({ 
+            status: "OK", 
+            message: "Curriculum retrieved successfully", 
+            curriculum: { ...curriculum._doc, lessons }
+        });
+    }
+    catch (error)
+    {
+        console.error (error);
+        res.status (500).json ({ status: "ERROR", message: "Server error" });
+    }
+}
+
 const newCurriculum = async(req, res) =>
 {
     try
@@ -89,4 +124,4 @@ const newCurriculum = async(req, res) =>
     }
 }
 
-module.exports = { newCurriculum, getCurriculums }; 
+module.exports = { newCurriculum, getCurriculums, getCurriculumById }; 

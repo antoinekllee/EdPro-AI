@@ -1,5 +1,5 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import classes from "./CurriculumOutput.module.css";
 import * as FaIcons from "react-icons/fa";
 import Button from "../components/Button";
@@ -8,6 +8,7 @@ import LessonItem from "../components/LessonItem";
 import LoadingContext from "../store/LoadingContext";
 
 function CurriculumOutput(props) {
+    const navigate = useNavigate();
     const { fade } = props;
     const { setIsLoading } = useContext(LoadingContext);
     const isMountedRef = useRef(false);
@@ -16,78 +17,40 @@ function CurriculumOutput(props) {
     const [subject, setSubject] = useState("");
     const [unitTitle, setUnitTitle] = useState("");
     const [weeks, setWeeks] = useState(1);
-    const [strandsArr, setStrandsArr] = useState([]);
+    const [strands, setStrands] = useState([]);
 
     const [lessonItems, setLessonItems] = useState([]);
 
     useEffect(() => {
-        if (!state) {
-          fade("/");
-          return;
+        console.log (state);
+        
+        if (!state || !state.curriculumId) {
+            navigate("/dashboard");
+            return;
         }
-    
-        setSubject(state.subject);
-        setUnitTitle(state.unitTitle);
-        setWeeks(state.weeks);
-        setStrandsArr(state.strands.split("\n"));
-    
-        window.history.replaceState({}, document.title); // Clear useLocation state to return to form page on reload
-    
-        isMountedRef.current = true;
-    
-        return () => {
-          isMountedRef.current = false;
-        };
-    }, [state, fade]);
 
-    const updateCurriculumsDb = async (lessonItems) => {
-        const { subject, unitTitle, weeks, strands } = state;
-        const payload = { subject, unitTitle, weeks, strands, lessonItems };
-
-        const response = await fetch("/curriculum/new", {
-            headers: { "Content-Type": "application/json" },
-            method: "POST",
-            body: JSON.stringify(payload),
-        });
-
-        const data = await response.json();
-        console.log(data);
-    };
-
-    useEffect(() => {
-        const generate = async () => {
-            const { subject, unitTitle, weeks, strands } = state;
-            const payload = { subject, unitTitle, weeks, strands };
-
-            const response = await fetch("/generate/curriculum", {
-                headers: { "Content-Type": "application/json" },
-                method: "POST",
-                body: JSON.stringify(payload),
-            });
-            
+        const fetchCurriculum = async () => {
+            setIsLoading(true);
+            const response = await fetch(`/curriculum/getById/${state.curriculumId}`);
             const data = await response.json();
-            console.log(data);
-
-            if (isMountedRef.current && data.status === "OK") {
-                const { lessonItems } = data;
-                setLessonItems(lessonItems);
-                updateCurriculumsDb(lessonItems);
-            }
-            else 
-            {
-                alert("Error generating curriculum");
-                fade("/curriculum");
-            }
-    
             setIsLoading(false);
-        }
-    
-        generate();
-        
-        
-      }, [state, setIsLoading]);
 
-      const addLessonItem = () => {
+            if (data.status === "ERROR") {
+                return alert("Failed to fetch data");
+            }   
+
+            const curriculum = data.curriculum;
+            setSubject(curriculum.subject);
+            setUnitTitle(curriculum.unitTitle);
+            setWeeks(curriculum.weeks);
+            setStrands(curriculum.strands);
+            setLessonItems(curriculum.lessons);
+        };
+
+        fetchCurriculum();
+    }, [state, navigate, setIsLoading]);
+
+    const addLessonItem = () => {
         setLessonItems([
             ...lessonItems,
             {
@@ -104,11 +67,12 @@ function CurriculumOutput(props) {
         newLessonItems.splice(index, 1);
         setLessonItems(newLessonItems);
     };
+    
     return (
         <div className={classes.container}>
             <h1>Curriculum for {subject} - {unitTitle}</h1>
             <h2>{weeks} weeks</h2>
-            {strandsArr.map((strand, index) => (<h4 key={index}>{strand}</h4>))}
+            <h2>{strands}</h2>
             {lessonItems.map((lessonItem, index) => (
                 <LessonItem
                     key={index}

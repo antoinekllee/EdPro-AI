@@ -16,7 +16,7 @@ function CurriculumItem(props) {
                 <h3>{weeks} Weeks</h3>
             </div>
             <Button
-                onClick={() => viewCurriculum}
+                onClick={viewCurriculum}
                 IconComponent={FaIcons.FaEye}
                 text="View"
             />

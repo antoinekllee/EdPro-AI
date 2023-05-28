@@ -44,11 +44,10 @@ function CurriculumForm(props) {
         setStrands(newStrands);
     };
 
-    const stringifyStrands = (strands) =>
+    const stringifyStrands = (strands) =>
     {
         return strands.map((strand, index) => `Strand ${index + 1}: ${strand.title}`).join("\n");
-    }
-      
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -58,7 +57,34 @@ function CurriculumForm(props) {
         setIsLoading(true);
 
         const state = { subject, unitTitle, weeks, strands: stringifyStrands(strands) }; 
-        props.fade("/curriculum", state);
+
+        const response = await fetch("/generate/curriculum", {
+            headers: { "Content-Type": "application/json" },
+            method: "POST",
+            body: JSON.stringify(state),
+        });
+        
+        const data = await response.json();
+        if (data.status !== "OK") {
+            alert("Error generating curriculum");
+            setIsLoading(false);
+            return;
+        }
+        const { lessonItems } = data;
+
+        const payload = { ...state, lessonItems };
+
+        const responseDb = await fetch("/curriculum/new", {
+            headers: { "Content-Type": "application/json" },
+            method: "POST",
+            body: JSON.stringify(payload),
+        });
+
+        const dataDb = await responseDb.json();
+
+        props.fade("/curriculum", { curriculumId: dataDb.curriculum._id })
+
+        setIsLoading(false);
     };
 
     return (

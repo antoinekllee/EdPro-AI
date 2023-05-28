@@ -21,7 +21,7 @@ const schema = new Schema({
         required: true,
     },
     strands: {
-        type: [String],
+        type: String,
         required: true,
     },
     lessons: [

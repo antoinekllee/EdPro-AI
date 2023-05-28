@@ -1,65 +1,67 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react'
-import { useNavigate } from "react-router-dom";;
+import React, { useState, useEffect, useMemo, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 
 /* eslint-disable import/first */
 
-import LoadingPanel from "./components/LoadingPanel"; 
-import LoadingContext from './store/LoadingContext';
+import LoadingPanel from "./components/LoadingPanel";
+import LoadingContext from "./store/LoadingContext";
 
 import UserContext from "./store/UserContext";
 
-import AnimatedRoutes from './components/AnimatedRoutes';
+import AnimatedRoutes from "./components/AnimatedRoutes";
 
-import './App.css'
+import "./App.css";
 
-function App() 
-{
-  const navigate = useNavigate();
+function App() {
+    const navigate = useNavigate();
 
-  const [isLoading, setIsLoading] = useState (false); 
-  const isLoadingContextValue = useMemo (() => ({ isLoading, setIsLoading }), [isLoading, setIsLoading]); 
+    const [isLoading, setIsLoading] = useState(false);
+    const isLoadingContextValue = useMemo(
+        () => ({ isLoading, setIsLoading }),
+        [isLoading, setIsLoading]
+    );
 
-  const [user, setUser] = useState (null); 
-  const userContextValue = useMemo (() => ({ user, setUser }), [user, setUser]); 
+    const [user, setUser] = useState(null);
+    const userContextValue = useMemo(
+        () => ({ user, setUser }),
+        [user, setUser]
+    );
 
-  const [isStartup, setIsStartup] = useState(true); // only call once
+    const [isStartup, setIsStartup] = useState(true); // only call once
 
-  const getUser = useCallback(async() => 
-  {
-    setIsLoading (true); 
+    const getUser = useCallback(async () => {
+        setIsLoading(true);
 
-    const response = await fetch ("/user", 
-    { 
-      headers: { "Content-Type": "application/json" }, 
-      method: "GET"
-    }); 
-    const data = await response.json(); 
-    
-    if(data.status === "ERROR")
-      navigate("/landing", { replace: true }); 
+        const response = await fetch("/user", {
+            headers: { "Content-Type": "application/json" },
+            method: "GET",
+        });
+        const data = await response.json();
 
-    setUser(data.user); 
-    setIsLoading(false); 
-  }, [navigate]); 
+        if (data.status === "ERROR") navigate("/landing", { replace: true });
 
-  useEffect (() => 
-  {
-    if (isStartup)
-    {
-      getUser(); 
-      setIsStartup(false); 
-    }
-  }, [getUser, isStartup]); 
+        setUser(data.user);
+        setIsLoading(false);
+    }, [navigate]);
 
-  return (<div>
-    <LoadingContext.Provider value={isLoadingContextValue}>
-    <UserContext.Provider value={userContextValue}>
-      <AnimatedRoutes />
-    </UserContext.Provider>
-    </LoadingContext.Provider>
+    useEffect(() => {
+        if (isStartup) {
+            getUser();
+            setIsStartup(false);
+        }
+    }, [getUser, isStartup]);
 
-    { isLoading && <LoadingPanel />}
-  </div>)
+    return (
+        <div>
+            <LoadingContext.Provider value={isLoadingContextValue}>
+                <UserContext.Provider value={userContextValue}>
+                    <AnimatedRoutes />
+                </UserContext.Provider>
+            </LoadingContext.Provider>
+
+            {isLoading && <LoadingPanel />}
+        </div>
+    );
 }
 
 export default App;
