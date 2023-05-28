@@ -1,46 +1,6 @@
 const curriculumModel = require("../models/curriculum"); 
 const lessonModel = require("../models/lesson");
 
-// const newUser = async(req, res) => 
-// {
-//     try 
-//     {
-//         let { username, email, password } = req.body; 
-
-//         if (!username || !email || !password)
-//             return res.status (400).json ({ status: "ERROR", message: "Username, email and password are all required" }); 
-
-//         const existingEmail = await userModel.findOne ({ email })
-
-//         if (existingEmail)
-//             return res.status (400).json ({ status: "ERROR", message: "Email already in use" }); 
-
-//         const existingUsername = await userModel.findOne ({ username })
-
-//         if (existingUsername)
-//             return res.status (400).json ({ status: "ERROR", message: "Username already in use" }); 
-
-//         const newUser = await userModel.create({ username, email, password }); 
-
-//         req.session.userId = newUser._id;
-
-//         res.status(200).json({ 
-//             status: "SUCCESS", 
-//             message: "New user created successfully", 
-//             user: 
-//             {
-//                 ...newUser._doc, 
-//                 password: undefined 
-//             }
-//         }); 
-//     }
-//     catch (error)
-//     {
-//         console.error (error); 
-//         res.status (500).json ({ status: "ERROR", message: "Server error" }); 
-//     }
-// }
-
 const getCurriculums = async(req, res) =>
 {
     try

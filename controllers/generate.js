@@ -149,5 +149,4 @@ const curriculum = async(req, res) => {
     }
 }
 
-
 module.exports = { mentorReport, mindmap, curriculum };
