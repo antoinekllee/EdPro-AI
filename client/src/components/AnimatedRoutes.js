@@ -14,6 +14,7 @@ import Dashboard from '../pages/Dashboard';
 import MindmapPage from '../pages/MindmapPage';
 import CurriculumForm from '../pages/CurriculumForm';
 import CurriculumOutput from '../pages/CurriculumOutput'; 
+import Lesson from '../pages/Lesson';
 
 function AnimatedRoutes()
 {
@@ -56,6 +57,7 @@ function AnimatedRoutes()
                     <Route path="/mindmap" element={<MindmapPage fade={fade} />} />
                     <Route path="/curriculum-form" element={<CurriculumForm fade={fade} />} />
                     <Route path="/curriculum" element={<CurriculumOutput fade={fade} />} />
+                    <Route path="/lesson" element={<Lesson fade={fade} />} />
                     <Route path="*" element={<Dashboard fade={fade} />} />
                 </Routes>
             </motion.div>

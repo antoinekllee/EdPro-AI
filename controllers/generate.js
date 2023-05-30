@@ -5,6 +5,7 @@ const { OPENAI_KEY } = process.env;
 const mentorReportPrompt = require("../prompts/mentorReportPrompt");
 const mindmapPrompt = require("../prompts/mindmapPrompt");
 const curriculumPrompt = require("../prompts/curriculumPrompt");
+const lessonPrompt = require("../prompts/lessonPrompt");
 
 const generateAIResponse = async (messages, model="gpt-3.5-turbo", additionalParams = {}) => {
     const configuration = new Configuration({
@@ -85,9 +86,9 @@ const mindmap = async(req, res) => {
 
 const curriculum = async(req, res) => {
     try {
-        const { subject, unitTitle, weeks, strands } = req.body;
+        const { subject, unitTitle, week, strands } = req.body;
 
-        if (!subject || !unitTitle || !weeks || !strands)
+        if (!subject || !unitTitle || !week || !strands)
             return res.status (400).json ({ status: "ERROR", message: "All fields are required" });
 
         let promptMessages = curriculumPrompt.prompt.split("<<MESSAGE_SEPARATOR>>");
@@ -101,7 +102,7 @@ const curriculum = async(req, res) => {
             messages.push({ "role": role, "content": promptMessages[i] });
         }
 
-        const request = `A ${subject} teacher is creating a unit:\nUnit title: ${unitTitle}\nLength of units: ${weeks} weeks\n${strands}\nSuggest a ${weeks} week unit planner, that includes conceptual understandings, benchmarks, and conceptual questions in each part.`;
+        const request = `A ${subject} teacher is creating a unit:\nUnit title: ${unitTitle}\nLength of units: ${week} weeks\n${strands}\nSuggest a ${week} week unit planner, that includes conceptual understandings, benchmarks, and conceptual questions in each part.`;
         messages.push({ "role": "user", "content": request });
 
         console.log ("Generating curriculum");
@@ -149,4 +150,43 @@ const curriculum = async(req, res) => {
     }
 }
 
-module.exports = { mentorReport, mindmap, curriculum };
+const lesson = async(req, res) => {
+    try {
+        const { numClasses, classLength, week, conceptualUnderstanding, benchmark, conceptualQuestion } = req.body;
+
+        if (!numClasses || !classLength || !week || !conceptualUnderstanding || !benchmark || !conceptualQuestion)
+            return res.status (400).json ({ status: "ERROR", message: "All fields are required" });
+
+        let promptMessages = lessonPrompt.prompt.split("<<MESSAGE_SEPARATOR>>");
+
+        let messages = [
+            { "role": "system", "content": promptMessages[0] }
+        ];
+
+        for (let i = 1; i < promptMessages.length; i++) {
+            let role = (i % 2 == 1) ? "user" : "assistant";
+            messages.push({ "role": role, "content": promptMessages[i] });
+        }
+
+        const request = `Number of lessons: ${numClasses}\nLength of each lesson: ${classLength}\nGenerate a lesson plan for the following contents, structure it in google slides, and give a detailed design for each slide.\nWeek: ${week}\nConceptual Understanding: ${conceptualUnderstanding}\nBenchmark: ${benchmark}\nConceptual Question: ${conceptualQuestion}`;
+
+        messages.push({ "role": "user", "content": request });
+
+        console.log ("Generating lesson");
+        console.log (request);
+
+        const lesson = await generateAIResponse(messages, "gpt-3.5-turbo", { maxTokens: 1000 });
+
+        console.log (lesson)
+
+        res.status (200).json ({ status: "OK", message: "Finished writing lesson plan", lessonPlan: lesson });
+
+        console.log ("Finished generating");
+    }
+    catch (error) {
+        console.error (error);
+        res.status (500).json ({ status: "ERROR", message: "Server error" });
+    }
+}
+
+module.exports = { mentorReport, mindmap, curriculum, lesson };

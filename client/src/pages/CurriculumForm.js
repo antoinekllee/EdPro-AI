@@ -13,15 +13,15 @@ function CurriculumForm(props) {
 
     const [subject, setSubject] = useState(""); 
     const [unitTitle, setUnitTitle] = useState("");
-    const [weeks, setWeeks] = useState(1);
+    const [week, setWeek] = useState(1);
     const [strands, setStrands] = useState([]);
 
     const handleInputChange = (e) => {
         setUnitTitle(e.target.value);
     };
 
-    const handleWeeksChange = (e) => {
-        setWeeks(e.target.value);
+    const handleWeekChange = (e) => {
+        setWeek(e.target.value);
     };
 
     const handleSubjectChange = (e) => {
@@ -52,11 +52,11 @@ function CurriculumForm(props) {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        if (!subject || !unitTitle || !weeks || !strands) return alert("All fields are required");
+        if (!subject || !unitTitle || !week || !strands) return alert("All fields are required");
 
         setIsLoading(true);
 
-        const state = { subject, unitTitle, weeks, strands: stringifyStrands(strands) }; 
+        const state = { subject, unitTitle, week, strands: stringifyStrands(strands) }; 
 
         const response = await fetch("/generate/curriculum", {
             headers: { "Content-Type": "application/json" },
@@ -111,8 +111,8 @@ function CurriculumForm(props) {
                         type="number"
                         min="1"
                         max="10"
-                        value={weeks}
-                        onChange={handleWeeksChange}
+                        value={week}
+                        onChange={handleWeekChange}
                     />
                     <p>Strands</p>
                     {strands.map((strand, index) => (

@@ -8,28 +8,41 @@ const schema = new Schema({
         ref: "User",
         required: true,
     },
-    subject: {
+    week:
+    {
         type: String,
         required: true,
     },
-    unitTitle: {
+    conceptualUnderstanding:
+    {
         type: String,
         required: true,
     },
-    weeks: {
+    benchmark:
+    {
+        type: String,
+        required: true,
+    },
+    conceptualQuestion:
+    {
+        type: String,
+        required: true,
+    },
+    numClasses:
+    {
         type: Number,
-        required: true,
+        required: false,
     },
-    strands: {
+    classLength:
+    {
+        type: Number,
+        required: false,
+    },
+    lessonPlan:
+    {
         type: String,
-        required: true,
-    },
-    lessons: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: "Lesson",
-        },
-    ],
+        required: false,
+    }
 });
 
 module.exports = model("Curriculum", schema);

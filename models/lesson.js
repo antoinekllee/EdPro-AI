@@ -12,10 +12,6 @@ const schema = new Schema({
         type: String, // Number
         required: true,
     },
-    // title: {
-    //     type: String,
-    //     required: true,
-    // },
     conceptualUnderstanding: {
         type: String,
         required: true,
@@ -28,19 +24,10 @@ const schema = new Schema({
         type: String,
         required: true,
     },
-    // Array of activities. Activities are objects with a title and description
-    // activities: [
-    //     {
-    //         title: {
-    //             type: String,
-    //             required: true,
-    //         },
-    //         description: {
-    //             type: String,
-    //             required: true,
-    //         },
-    //     },
-    // ]
+    lessonPlan: {
+        type: [String],
+        required: true,
+    }
 });
 
 module.exports = model("Lesson", schema);

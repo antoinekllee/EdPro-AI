@@ -16,7 +16,7 @@ function CurriculumOutput(props) {
     const { state } = useLocation();
     const [subject, setSubject] = useState("");
     const [unitTitle, setUnitTitle] = useState("");
-    const [weeks, setWeeks] = useState(1);
+    const [week, setWeek] = useState(1);
     const [strands, setStrands] = useState([]);
 
     const [lessonItems, setLessonItems] = useState([]);
@@ -42,7 +42,7 @@ function CurriculumOutput(props) {
             const curriculum = data.curriculum;
             setSubject(curriculum.subject);
             setUnitTitle(curriculum.unitTitle);
-            setWeeks(curriculum.weeks);
+            setWeek(curriculum.week);
             setStrands(curriculum.strands);
             setLessonItems(curriculum.lessons);
         };
@@ -71,7 +71,7 @@ function CurriculumOutput(props) {
     return (
         <div className={classes.container}>
             <h1>Curriculum for {subject} - {unitTitle}</h1>
-            <h2>{weeks} weeks</h2>
+            <h2>{week} weeks</h2>
             <h2>{strands}</h2>
             {lessonItems.map((lessonItem, index) => (
                 <LessonItem
@@ -79,6 +79,7 @@ function CurriculumOutput(props) {
                     index={index}
                     item={lessonItem}
                     onRemove={() => removeLessonItem(index)}
+                    fade={fade}
                 />
             ))}
             <Button

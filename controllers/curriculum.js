@@ -67,9 +67,9 @@ const newCurriculum = async(req, res) =>
 {
     try
     {
-        const { subject, unitTitle, weeks, strands, lessonItems } = req.body; 
+        const { subject, unitTitle, week, strands, lessonItems } = req.body; 
 
-        if (!subject || !unitTitle || !weeks || !strands || !lessonItems)
+        if (!subject || !unitTitle || !week || !strands || !lessonItems)
             return res.status(400).json({ 
                 status: "ERROR", 
                 message: "Subject, unit title, weeks, and strands are all required" 
@@ -87,7 +87,7 @@ const newCurriculum = async(req, res) =>
             user: userId, 
             subject, 
             unitTitle, 
-            weeks, 
+            week, 
             strands
         }); 
 
@@ -124,4 +124,91 @@ const newCurriculum = async(req, res) =>
     }
 }
 
-module.exports = { newCurriculum, getCurriculums, getCurriculumById }; 
+// Update a lesson given lesson id by replacing all its fields
+// Fields are week, conceptualUnderstanding, benchmark, conceptualQuestion, numClasses, classLength, lessonPlan, lessonId
+const updateLesson = async(req, res) =>
+{
+    try
+    {
+        const { week, conceptualUnderstanding, benchmark, conceptualQuestion, numClasses, classLength, lessonPlan, lessonId } = req.body;
+
+        if (!week || !conceptualUnderstanding || !benchmark || !conceptualQuestion || !numClasses || !classLength || !lessonPlan || !lessonId)
+            return res.status(400).json({ 
+                status: "ERROR", 
+                message: "All fields are required" 
+            });
+
+        const userId = req.session.userId;
+
+        if (!userId)
+            return res.status(400).json({ 
+                status: "ERROR", 
+                message: "User not logged in" 
+            });
+
+        // Try find the lesson
+        const lesson = await lessonModel.findOne({ _id: lessonId });
+
+        if (!lesson)
+            return res.status(400).json({ 
+                status: "ERROR", 
+                message: "Lesson not found" 
+            });
+
+        // Update the lesson
+        lesson.week = week;
+        lesson.conceptualUnderstanding = conceptualUnderstanding;
+        lesson.benchmark = benchmark;
+        lesson.conceptualQuestion = conceptualQuestion;
+        lesson.numClasses = numClasses;
+        lesson.classLength = classLength;
+        lesson.lessonPlan = lessonPlan;
+        await lesson.save();
+
+        res.status(200).json({ 
+            status: "OK", 
+            message: "Lesson updated successfully", 
+            lesson
+        }); 
+    }
+    catch (error)
+    {
+        console.error (error);
+        res.status (500).json ({ status: "ERROR", message: "Server error" });
+    }
+}
+
+const getLessonById = async(req, res) =>
+{
+    try
+    {
+        const userId = req.session.userId; 
+
+        if (!userId)
+            return res.status(400).json({ 
+                status: "ERROR", 
+                message: "User not logged in" 
+            });
+
+        const lesson = await lessonModel.findOne({ _id: req.params.id });
+
+        if (!lesson)
+            return res.status(400).json({ 
+                status: "ERROR", 
+                message: "Lesson not found" 
+            });
+
+        res.status(200).json({ 
+            status: "OK", 
+            message: "Lesson retrieved successfully", 
+            lesson
+        });
+    }
+    catch (error)
+    {
+        console.error (error);
+        res.status (500).json ({ status: "ERROR", message: "Server error" });
+    }
+}
+
+module.exports = { newCurriculum, getCurriculums, getCurriculumById, updateLesson, getLessonById }; 
