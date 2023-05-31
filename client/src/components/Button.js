@@ -8,16 +8,20 @@ function Button(props) {
         text,
         buttonWidth = "auto",
         type = "button",
-        className,
+        className, 
+        isBlue
     } = props;
 
     const buttonStyle = {
         width: buttonWidth,
     };
 
+    // Generate dynamic class based on 'isBlue' prop.
+    const buttonClass = `${classes.submitButton} ${className} ${isBlue ? classes.blueButton : ''}`;
+
     return (
         <button
-            className={`${classes.submitButton} ${className}`}
+            className={buttonClass}
             onClick={onClick}
             style={buttonStyle}
             type={type}

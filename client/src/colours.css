@@ -1,9 +1,9 @@
 :root
 {
-  --blue: #286FB4; 
-  --bg: #FFFFFF; 
-  --panel: #E2F0F9; 
-  --gray: #B0DDE4; 
-  --text: #333333; 
+  --blue: #4972f9; 
+  --bg: #feffff; 
+  --panel: #f0f0f0; 
+  --gray: #c2c2c2; 
+  --text: #000000; 
   --red: #DE4C73;  
 }

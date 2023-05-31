@@ -7,6 +7,8 @@ import UserContext from '../store/UserContext';
 
 import Title from '../components/Logo';
 
+import Button from '../components/Button';
+
 import classes from './LandingPage.module.css'
 
 function LandingPage (props)
@@ -18,8 +20,11 @@ function LandingPage (props)
             <Title />
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non ligula in ligula bibendum facilisis sit amet eget massa. Nulla semper nisi et rhoncus posuere. Pellentesque at mattis metus. Pellentesque in nulla magna. Pellentesque sed consectetur lectus. Suspendisse vitae quam vitae est molestie dapibus.</p>
             <div className={classes.buttons}>
-                <button onClick={() => props.fade('/signup')}><FaIcons.FaUserPlus className={classes.buttonIcon} />Sign Up</button>
-                <button onClick={() => props.fade(user ? '/' : '/login')}><FaIcons.FaSignInAlt className={classes.buttonIcon} />Login</button>
+                {/* <button onClick={() => props.fade('/signup')}><FaIcons.FaUserPlus className={classes.buttonIcon} />Sign Up</button>
+                <button onClick={() => props.fade(user ? '/' : '/login')}><FaIcons.FaSignInAlt className={classes.buttonIcon} />Login</button> */}
+
+                <Button onClick={() => props.fade('/signup')} text="Get Started" IconComponent={FaIcons.FaUserPlus} buttonWidth="200px" isBlue />
+                <Button onClick={() => props.fade(user ? '/' : '/login')} text="Login" IconComponent={FaIcons.FaSignInAlt} buttonWidth="200px" />
             </div>
             <button className={classes.moreInfoButton}>More Info<br /><AiIcons.AiOutlineDown className={classes.moreInfoIcon} /></button>
             

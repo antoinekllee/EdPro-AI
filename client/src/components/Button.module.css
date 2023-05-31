@@ -1,9 +1,16 @@
 .submitButton {
     align-self: center;
     margin-top: 25px;
+    border: 2px solid var(--gray);
 }
-.buttonIcon
-{
+
+.blueButton {
+    background-color: var(--blue);
+    border: none;
+    color: white;
+}
+
+.buttonIcon {
     vertical-align: middle;
     margin-bottom: 3px;
     margin-right: 10px;

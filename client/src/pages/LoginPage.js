@@ -4,6 +4,7 @@ import * as FaIcons from "react-icons/fa"
 
 import UserContext from '../store/UserContext';
 
+import Button from '../components/Button';
 import Logo from '../components/Logo';
 import classes from './LoginPage.module.css'
 
@@ -47,9 +48,11 @@ return <div>
             <form onSubmit={login} className={classes.form}>
                 <input type="text" placeholder='Username' required ref={usernameRef}></input>
                 <input type="password" placeholder='Password' required ref={passwordRef}></input>
-                <button type="submit"><FaIcons.FaSignInAlt className={classes.buttonIcon} />Login</button>
+                {/* <button type="submit"><FaIcons.FaSignInAlt className={classes.buttonIcon} />Login</button> */}
+                <Button type="submit" text="Login" IconComponent={FaIcons.FaSignInAlt} buttonWidth="200px" isBlue />
                 <p>or</p>
-                <button type="button" onClick={() => props.fade('/signup')}><FaIcons.FaUserPlus className={classes.buttonIcon} />Sign Up</button>
+                {/* <button type="button" onClick={() => props.fade('/signup')}><FaIcons.FaUserPlus className={classes.buttonIcon} />Sign Up</button> */}
+                <Button type="button" onClick={() => props.fade('/signup')} text="Sign Up" IconComponent={FaIcons.FaUserPlus} buttonWidth="200px" />
             </form> 
             {/* <p>Powered by generative AI, our project is a compact webapp that can write IB-style past paper questions of the requested topic/unit. It generates questions, mark schemes, and model answers, as well as mark answers uploaded by students.</p> */}
             {/* <div className={classes.buttons}>

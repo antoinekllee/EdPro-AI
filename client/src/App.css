@@ -44,13 +44,13 @@ button
 {
   border: 0;
   box-shadow: none;
-  border-radius: 10px;
-  width: 150px;
-  height: 40px;
+  border-radius: 5px;
+  width: 200px;
+  height: 50px;
   /* font-family: 'Source Code Pro', monospace; */
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
-  font-size: 17px;
+  font-size: 19px;
   margin: 5px;
   background-color: var(--panel);
   color: var(--text);
@@ -65,20 +65,20 @@ button:hover
 
 input
 {
-  background-color: var(--panel);
-  border: 0;
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid var(--panel);
   box-shadow: none;
   width: 200px;
   height: 40px;
   outline: none;
   color: var(--text);
-  /* font-family: 'Source Code Pro', monospace; */
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
   font-size: 17px;
   padding-left: 15px;
   padding-right: 15px;
-  border-radius: 10px;
+  transition: border-bottom-color 0.2s ease-in-out;  /* Add transition */
   display: block;
 }
 
@@ -89,9 +89,13 @@ input::placeholder
 
 input:-webkit-autofill
 {
-  -webkit-text-fill-color: var(--text) !important;
-  -webkit-box-shadow: 0 0 0 1000px var(--panel) inset !important;
+  -webkit-text-fill-color: var(--gray) !important;
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important; /* Modify to transparent */
   -webkit-background-clip: text;
+}
+
+input:focus {
+  border-bottom-color: var(--blue); /* On focus, underline turns blue */
 }
 
 select {
