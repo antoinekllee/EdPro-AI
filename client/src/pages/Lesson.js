@@ -17,6 +17,7 @@ function Lesson(props) {
     const [numClasses, setNumClasses] = useState("");
     const [classLength, setClassLength] = useState("");
     const [lessonPlan, setLessonPlan] = useState("");
+    const [curriculumId, setCurriculumId] = useState("");
 
     // const [subject, setSubject] = useState(""); 
 
@@ -48,10 +49,44 @@ function Lesson(props) {
             setNumClasses(lesson.numClasses);
             setClassLength(lesson.classLength);
             setLessonPlan(lesson.lessonPlan);
+            setCurriculumId(lesson.curriculum);
         };
 
         fetchLesson();
     }, [state, navigate, setIsLoading]);
+
+    const handleSave = async () => {
+        if (!week || !conceptualUnderstanding || !benchmark || !conceptualQuestion || !numClasses || !classLength || !lessonPlan) {
+            return alert("All fields are required");
+        }
+
+        setIsLoading(true);
+
+        const response = await fetch('/curriculum/update-lesson', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                lessonId: state.lessonId,
+                week,
+                conceptualUnderstanding,
+                benchmark,
+                conceptualQuestion,
+                numClasses,
+                classLength,
+                lessonPlan,
+            }),
+        });
+
+        const data = await response.json(); 
+
+        if (data.status === "ERROR") {
+            return alert("Failed to update lesson");
+        }
+
+        setIsLoading(false);
+    };
     
     return (
         <div className={classes.container}>
@@ -117,6 +152,21 @@ function Lesson(props) {
                     value={lessonPlan}
                     onChange={(e) => setLessonPlan(e.target.value)}
                     placeholder="Lesson Plan"
+                />
+            </div>
+            {/* Save button */}
+            <div className={classes.buttonContainer}>
+                <Button
+                    onClick={() => props.fade("/curriculum", { curriculumId })}
+                    IconComponent={FaIcons.FaArrowLeft}
+                    buttonWidth="200px"
+                    text="Back"
+                />
+                <Button
+                    onClick={handleSave}
+                    IconComponent={FaIcons.FaSave}
+                    buttonWidth="200px"
+                    text="Save"
                 />
             </div>
         </div>
