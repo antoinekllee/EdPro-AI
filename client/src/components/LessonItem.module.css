@@ -6,6 +6,7 @@
     background-color: var(--gray);
     margin-bottom: 20px;
     position: relative;
+    width: 100%;
 }
 
 .removeButton {
@@ -28,5 +29,25 @@
 
 .field input {
     background-color: var(--bg);
-    width: 80%;
+    width: 90%;
+}
+
+.field textarea {
+    background-color: var(--bg);
+    width: 90%;
+    height: 100px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+}
+
+.buttonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
 }

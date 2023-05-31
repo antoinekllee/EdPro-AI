@@ -1,0 +1,5 @@
+.lessonPlan {
+    background-color: var(--bg);
+    width: 90%;
+    height: calc(1.5em * 20); /* 1.5em is roughly the height of a single line, adjust as needed */
+}

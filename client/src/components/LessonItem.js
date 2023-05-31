@@ -1,7 +1,5 @@
 import React, { useState, useContext } from "react";
-import * as FaIcons from "react-icons/fa";
 import classes from "./LessonItem.module.css";
-import IconButton from "./IconButton";
 import Button from "./Button";
 import LoadingContext from "../store/LoadingContext";
 
@@ -19,6 +17,18 @@ function LessonItem(props) {
 
     const viewPlan = () => {
         props.fade("/lesson", { lessonId: item._id })
+    }
+
+    const handleNumClassesChange = (e) => {
+        if (e.target.value >= 0) {
+            setNumClasses(e.target.value);
+        }
+    }
+
+    const handleClassLengthChange = (e) => {
+        if (e.target.value >= 0) {
+            setClassLength(e.target.value);
+        }
     }
 
     const generatePlan = async() => 
@@ -67,9 +77,6 @@ function LessonItem(props) {
 
     return (
         <div className={classes.lessonItem}>
-            <div className={classes.removeButton}>
-                <IconButton Icon={FaIcons.FaMinus} onClick={props.onRemove} />
-            </div>
             <div className={classes.field}>
                 <label>Week</label>
                 <input
@@ -81,8 +88,8 @@ function LessonItem(props) {
             </div>
             <div className={classes.field}>
                 <label>Conceptual Understanding</label>
-                <input
-                    type="text"
+                <textarea
+                    rows="3"
                     value={conceptualUnderstanding}
                     onChange={(e) => setConceptualUnderstanding(e.target.value)}
                     placeholder="Conceptual Understanding"
@@ -90,8 +97,8 @@ function LessonItem(props) {
             </div>
             <div className={classes.field}>
                 <label>Benchmark</label>
-                <input
-                    type="text"
+                <textarea
+                    rows="3"
                     value={benchmark}
                     onChange={(e) => setBenchmark(e.target.value)}
                     placeholder="Benchmark"
@@ -99,35 +106,40 @@ function LessonItem(props) {
             </div>
             <div className={classes.field}>
                 <label>Conceptual Question</label>
-                <input
-                    type="text"
+                <textarea
+                    rows="3"
                     value={conceptualQuestion}
                     onChange={(e) => setConceptualQuestion(e.target.value)}
                     placeholder="Conceptual Question"
                 />
             </div>
-            {/* Make a number input for classes */}
-            <div className={classes.field}>
-                <label>Classes</label>
-                <input
-                    type="text"
-                    value={numClasses}
-                    onChange={(e) => setNumClasses(e.target.value)}
-                    placeholder="Classes"
-                />
+            <div className={classes.row}>
+                <div className={classes.field}>
+                    <label>Number of Lessons</label>
+                    <input
+                        type="number"
+                        value={numClasses}
+                        onChange={handleNumClassesChange}
+                        min="0"
+                        placeholder="Number of Lessons"
+                    />
+                </div>
+                <div className={classes.field}>
+                    <label>Length of each Lesson</label>
+                    <input
+                        type="number"
+                        value={classLength}
+                        onChange={handleClassLengthChange}
+                        min="0"
+                        placeholder="Length of each Lesson"
+                    />
+                </div>
             </div>
-            {/* Make an input for Class Length where the value must be a number*/}
-            <div className={classes.field}>
-                <label>Class Length</label>
-                <input
-                    type="text"
-                    value={classLength}
-                    onChange={(e) => setClassLength(e.target.value)}
-                    placeholder="Class Length"
-                />
+            <div className={classes.buttonContainer}>
+                <Button text="Delete" buttonWidth="100px" onClick={props.onRemove} />
+                <Button text="Plan" buttonWidth="100px" onClick={generatePlan} />
+                <Button text="View" buttonWidth="100px" onClick={viewPlan} />
             </div>
-            <Button text="Plan" buttonWidth="100px" onClick={generatePlan} />
-            <Button text="View" buttonWidth="100px" onClick={viewPlan} />
         </div>
     );
 }

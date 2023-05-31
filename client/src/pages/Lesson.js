@@ -56,15 +56,69 @@ function Lesson(props) {
     return (
         <div className={classes.container}>
             <h1>Lesson</h1>
-            <h2>Week: {week}</h2>
-            <h2>Conceptual Understanding: {conceptualUnderstanding}</h2>
-            <h2>Benchmark: {benchmark}</h2>
-            <h2>Conceptual Question: {conceptualQuestion}</h2>
-            <h2>Number of Classes: {numClasses}</h2>
-            <h2>Class Length: {classLength}</h2>
-            <h2>Lesson Plan</h2>
-            <p>{lessonPlan}</p>
-
+            <div className={classes.field}>
+                <label>Week</label>
+                <input
+                    type="text"
+                    value={week}
+                    onChange={(e) => setWeek(e.target.value)}
+                    placeholder="Week"
+                />
+            </div>
+            <div className={classes.field}>
+                <label>Conceptual Understanding</label>
+                <textarea
+                    rows="3"
+                    value={conceptualUnderstanding}
+                    onChange={(e) => setConceptualUnderstanding(e.target.value)}
+                    placeholder="Conceptual Understanding"
+                />
+            </div>
+            <div className={classes.field}>
+                <label>Benchmark</label>
+                <textarea
+                    rows="3"
+                    value={benchmark}
+                    onChange={(e) => setBenchmark(e.target.value)}
+                    placeholder="Benchmark"
+                />
+            </div>
+            <div className={classes.field}>
+                <label>Conceptual Question</label>
+                <textarea
+                    rows="3"
+                    value={conceptualQuestion}
+                    onChange={(e) => setConceptualQuestion(e.target.value)}
+                    placeholder="Conceptual Question"
+                />
+            </div>
+            <div className={classes.field}>
+                <label>Number of Classes</label>
+                <input
+                    type="number"
+                    value={numClasses}
+                    onChange={(e) => setNumClasses(e.target.value)}
+                    placeholder="Number of Classes"
+                />
+            </div>
+            <div className={classes.field}>
+                <label>Class Length</label>
+                <input
+                    type="number"
+                    value={classLength}
+                    onChange={(e) => setClassLength(e.target.value)}
+                    placeholder="Class Length"
+                />
+            </div>
+            <div className={[classes.field, classes.lessonPlan]}>
+                <label>Lesson Plan</label>
+                <textarea
+                    rows="20"
+                    value={lessonPlan}
+                    onChange={(e) => setLessonPlan(e.target.value)}
+                    placeholder="Lesson Plan"
+                />
+            </div>
         </div>
     );
 }

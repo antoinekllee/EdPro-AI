@@ -8,25 +8,40 @@ const schema = new Schema({
         ref: "Curriculum",
         required: true,
     },
-    week: {
-        type: String, // Number
-        required: true,
-    },
-    conceptualUnderstanding: {
+    week:
+    {
         type: String,
         required: true,
     },
-    benchmark: {
+    conceptualUnderstanding:
+    {
         type: String,
-        required: true,
+        required: false,
     },
-    conceptualQuestion: {
+    benchmark:
+    {
         type: String,
-        required: true,
+        required: false,
     },
-    lessonPlan: {
-        type: [String],
-        required: true,
+    conceptualQuestion:
+    {
+        type: String,
+        required: false,
+    },
+    numClasses:
+    {
+        type: Number,
+        required: false,
+    },
+    classLength:
+    {
+        type: Number,
+        required: false,
+    },
+    lessonPlan:
+    {
+        type: String,
+        required: false,
     }
 });
 

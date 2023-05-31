@@ -74,7 +74,7 @@ function Dashboard(props) {
                     key = {curriculum._id}
                     subject={curriculum.subject}
                     unitTitle={curriculum.unitTitle}
-                    week={curriculum.week}
+                    weeks={curriculum.weeks}
                     viewCurriculum={() => fade("/curriculum", { curriculumId: curriculum._id })}
                 />
             ))}

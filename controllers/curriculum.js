@@ -67,12 +67,12 @@ const newCurriculum = async(req, res) =>
 {
     try
     {
-        const { subject, unitTitle, week, strands, lessonItems } = req.body; 
+        const { subject, unitTitle, numOfWeeks, strands, lessonItems } = req.body; 
 
-        if (!subject || !unitTitle || !week || !strands || !lessonItems)
+        if (!subject || !unitTitle || !numOfWeeks || !strands || !lessonItems)
             return res.status(400).json({ 
                 status: "ERROR", 
-                message: "Subject, unit title, weeks, and strands are all required" 
+                message: "Subject, unit title, number of weeks, and strands are all required" 
             });
 
         const userId = req.session.userId; 
@@ -87,14 +87,28 @@ const newCurriculum = async(req, res) =>
             user: userId, 
             subject, 
             unitTitle, 
-            week, 
+            numOfWeeks, 
             strands
         }); 
+
+        console.log ("LESSON ITEMS: ")
+        console.log (lessonItems)
 
         lessons = [];
         for (let i = 0; i < lessonItems.length; i++)
         {
             const { week, conceptualUnderstanding, benchmark, conceptualQuestion } = lessonItems[i];
+
+            console.log ("Week: " + week);
+            console.log ("Conceptual understanding: " + conceptualUnderstanding);
+            console.log ("Benchmark: " + benchmark);
+            console.log ("Conceptual question: " + conceptualQuestion);
+
+            if (!week || !conceptualUnderstanding || !benchmark || !conceptualQuestion)
+                return res.status(400).json({ 
+                    status: "ERROR", 
+                    message: "Lesson items must have week, conceptual understanding, benchmark, and conceptual question" 
+                });
 
             const lesson = await lessonModel.create({
                 curriculum: newCurriculum._id,

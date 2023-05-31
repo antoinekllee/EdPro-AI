@@ -13,15 +13,15 @@ function CurriculumForm(props) {
 
     const [subject, setSubject] = useState(""); 
     const [unitTitle, setUnitTitle] = useState("");
-    const [week, setWeek] = useState(1);
+    const [numOfWeeks, setNumOfWeeks] = useState(1);
     const [strands, setStrands] = useState([]);
 
     const handleInputChange = (e) => {
         setUnitTitle(e.target.value);
     };
 
-    const handleWeekChange = (e) => {
-        setWeek(e.target.value);
+    const handleWeeksChange = (e) => {
+        setNumOfWeeks(e.target.value);
     };
 
     const handleSubjectChange = (e) => {
@@ -52,11 +52,13 @@ function CurriculumForm(props) {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        if (!subject || !unitTitle || !week || !strands) return alert("All fields are required");
+        if (!subject || !unitTitle || !numOfWeeks || !strands) return alert("All fields are required");
 
         setIsLoading(true);
 
-        const state = { subject, unitTitle, week, strands: stringifyStrands(strands) }; 
+        const state = { subject, unitTitle, numOfWeeks, strands: stringifyStrands(strands) }; 
+
+        console.log(state)
 
         const response = await fetch("/generate/curriculum", {
             headers: { "Content-Type": "application/json" },
@@ -65,6 +67,7 @@ function CurriculumForm(props) {
         });
         
         const data = await response.json();
+
         if (data.status !== "OK") {
             alert("Error generating curriculum");
             setIsLoading(false);
@@ -81,6 +84,12 @@ function CurriculumForm(props) {
         });
 
         const dataDb = await responseDb.json();
+
+        if (dataDb.status !== "OK") {
+            alert("Error saving curriculum");
+            setIsLoading(false);
+            return;
+        }
 
         props.fade("/curriculum", { curriculumId: dataDb.curriculum._id })
 
@@ -106,13 +115,13 @@ function CurriculumForm(props) {
                         onChange={handleInputChange}
                         placeholder="Unit Title"
                     />
-                    <p>Weeks</p>
+                    <p>Number of Weeks</p>
                     <input
                         type="number"
                         min="1"
                         max="10"
-                        value={week}
-                        onChange={handleWeekChange}
+                        value={numOfWeeks}
+                        onChange={handleWeeksChange}
                     />
                     <p>Strands</p>
                     {strands.map((strand, index) => (

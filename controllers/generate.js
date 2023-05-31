@@ -86,9 +86,9 @@ const mindmap = async(req, res) => {
 
 const curriculum = async(req, res) => {
     try {
-        const { subject, unitTitle, week, strands } = req.body;
+        const { subject, unitTitle, numOfWeeks, strands } = req.body;
 
-        if (!subject || !unitTitle || !week || !strands)
+        if (!subject || !unitTitle || !numOfWeeks || !strands)
             return res.status (400).json ({ status: "ERROR", message: "All fields are required" });
 
         let promptMessages = curriculumPrompt.prompt.split("<<MESSAGE_SEPARATOR>>");
@@ -102,7 +102,7 @@ const curriculum = async(req, res) => {
             messages.push({ "role": role, "content": promptMessages[i] });
         }
 
-        const request = `A ${subject} teacher is creating a unit:\nUnit title: ${unitTitle}\nLength of units: ${week} weeks\n${strands}\nSuggest a ${week} week unit planner, that includes conceptual understandings, benchmarks, and conceptual questions in each part.`;
+        const request = `A ${subject} teacher is creating a unit:\nUnit title: ${unitTitle}\nLength of units: ${numOfWeeks} weeks\n${strands}\nSuggest a ${numOfWeeks} week unit planner, that includes conceptual understandings, benchmarks, and conceptual questions in each part.`;
         messages.push({ "role": "user", "content": request });
 
         console.log ("Generating curriculum");
