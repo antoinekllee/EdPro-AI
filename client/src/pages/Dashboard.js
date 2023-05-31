@@ -12,7 +12,7 @@ import classes from "./Dashboard.module.css";
 
 function Dashboard(props) {
     const { fade } = props;
-    const { isLoading, setIsLoading } = useContext(LoadingContext);
+    const { setIsLoading } = useContext(LoadingContext);
 
     const [curriculums, setCurriculums] = useState([]);
 
@@ -27,6 +27,8 @@ function Dashboard(props) {
                 alert(data.message);
                 return;
             }
+
+            console.log (data.curriculums);
 
             setCurriculums(data.curriculums);
 
@@ -74,7 +76,7 @@ function Dashboard(props) {
                     key = {curriculum._id}
                     subject={curriculum.subject}
                     unitTitle={curriculum.unitTitle}
-                    weeks={curriculum.weeks}
+                    numOfWeeks={curriculum.numOfWeeks}
                     viewCurriculum={() => fade("/curriculum", { curriculumId: curriculum._id })}
                 />
             ))}

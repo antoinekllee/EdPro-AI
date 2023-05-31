@@ -2,4 +2,10 @@
 {
     width: 100%;
     background-color: var(--panel);
+    /* Align items horizontally */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /* Gap */
+    gap: 20px;
 }

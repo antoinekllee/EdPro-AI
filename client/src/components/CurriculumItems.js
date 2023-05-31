@@ -6,14 +6,13 @@ import Button from "../components/Button";
 import classes from "./CurriculumItem.module.css";
 
 function CurriculumItem(props) {
-    const { subject, unitTitle, week, viewCurriculum } = props;
+    const { subject, unitTitle, numOfWeeks, viewCurriculum } = props;
 
     return (
         <div className={classes.container}>
             <div>
-                <h3>{subject}</h3>
-                <h3>{unitTitle}</h3>
-                <h3>{week} Weeks</h3>
+                <h3>Curriculum for {subject} - {unitTitle}</h3>
+                <h3>{numOfWeeks} Weeks</h3>
             </div>
             <Button
                 onClick={viewCurriculum}
