@@ -11,12 +11,11 @@ function CurriculumOutput(props) {
     const navigate = useNavigate();
     const { fade } = props;
     const { setIsLoading } = useContext(LoadingContext);
-    const isMountedRef = useRef(false);
 
     const { state } = useLocation();
     const [subject, setSubject] = useState("");
     const [unitTitle, setUnitTitle] = useState("");
-    const [week, setWeek] = useState(1);
+    const [weeks, setWeeks] = useState(1);
     const [strands, setStrands] = useState([]);
 
     const [lessonItems, setLessonItems] = useState([]);
@@ -42,8 +41,8 @@ function CurriculumOutput(props) {
             const curriculum = data.curriculum;
             setSubject(curriculum.subject);
             setUnitTitle(curriculum.unitTitle);
-            setWeek(curriculum.week);
-            setStrands(curriculum.strands);
+            setWeeks(curriculum.numOfWeeks);
+            setStrands(curriculum.strands.split("\n"));
             setLessonItems(curriculum.lessons);
         };
 
@@ -71,8 +70,8 @@ function CurriculumOutput(props) {
     return (
         <div className={classes.container}>
             <h1>Curriculum for {subject} - {unitTitle}</h1>
-            <h2>{week} weeks</h2>
-            <h2>{strands}</h2>
+            <h2>{weeks} weeks</h2>
+            { strands.map ((strand, index) => <h2 key={index}>{strand}</h2>) }
             {lessonItems.map((lessonItem, index) => (
                 <LessonItem
                     key={index}
@@ -87,6 +86,7 @@ function CurriculumOutput(props) {
                 onClick={addLessonItem}
                 text="Add Curriculum Item"
                 buttonWidth="250px"
+                buttonHeight="50px"
             />
         </div>
     );

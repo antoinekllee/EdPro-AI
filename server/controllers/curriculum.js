@@ -140,16 +140,18 @@ const newCurriculum = async(req, res) =>
 
 // Update a lesson given lesson id by replacing all its fields
 // Fields are week, conceptualUnderstanding, benchmark, conceptualQuestion, numClasses, classLength, lessonPlan, lessonId
+// Lesson plan can be null
 const updateLesson = async(req, res) =>
 {
     try
     {
         const { week, conceptualUnderstanding, benchmark, conceptualQuestion, numClasses, classLength, lessonPlan, lessonId } = req.body;
 
-        if (!week || !conceptualUnderstanding || !benchmark || !conceptualQuestion || !numClasses || !classLength || !lessonPlan || !lessonId)
+        // Check if the required fields are provided and not null
+        if (!week || !conceptualUnderstanding || !benchmark || !conceptualQuestion || !numClasses || !classLength || !lessonId)
             return res.status(400).json({ 
                 status: "ERROR", 
-                message: "All fields are required" 
+                message: "All fields except lessonPlan are required" 
             });
 
         const userId = req.session.userId;
@@ -176,7 +178,10 @@ const updateLesson = async(req, res) =>
         lesson.conceptualQuestion = conceptualQuestion;
         lesson.numClasses = numClasses;
         lesson.classLength = classLength;
-        lesson.lessonPlan = lessonPlan;
+        // Update lessonPlan only if it is provided in the payload (including null)
+        if (lessonPlan !== undefined) {
+            lesson.lessonPlan = lessonPlan;
+        }
         await lesson.save();
 
         res.status(200).json({ 

@@ -145,15 +145,17 @@ function Lesson(props) {
                     placeholder="Class Length"
                 />
             </div>
-            <div className={[classes.field, classes.lessonPlan]}>
+            <div className={classes.field}>
                 <label>Lesson Plan</label>
                 <textarea
-                    rows="20"
+                    className={classes.lessonPlanTextarea} /* Add specific class */
+                    rows="30"
                     value={lessonPlan}
                     onChange={(e) => setLessonPlan(e.target.value)}
                     placeholder="Lesson Plan"
                 />
             </div>
+
             {/* Save button */}
             <div className={classes.buttonContainer}>
                 <Button

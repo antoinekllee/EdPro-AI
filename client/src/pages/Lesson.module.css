@@ -1,5 +1,53 @@
-.lessonPlan {
+.container {
+    width: 60vw;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* horizontally aligns items along the cross axis */
+    justify-content: center; /* vertically aligns items along the main axis */
+    gap: 1em;
+  }
+
+
+.field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.field label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: var(--text);
+}
+
+.field input,
+.field textarea {
     background-color: var(--bg);
-    width: 90%;
-    height: calc(1.5em * 20); /* 1.5em is roughly the height of a single line, adjust as needed */
+    border: 1px solid var(--gray);
+    padding: 10px;
+    border-radius: 5px;
+    color: var(--text);
+    width: 100%; 
+}
+
+.field textarea {
+    background-color: var(--bg);
+    border: 1px solid var(--gray);
+    padding: 10px;
+    border-radius: 5px;
+    color: var(--text);
+    width: 100%;
+    resize: vertical; /* Allow user to resize vertically if they need more space */
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.lessonPlanTextarea {
+    height: 100vh; /* Set the height of the textarea to the viewport height */
+    resize: vertical; /* Allow user to resize vertically if they need more space */
 }

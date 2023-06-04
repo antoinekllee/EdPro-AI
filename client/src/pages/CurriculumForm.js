@@ -138,14 +138,16 @@ function CurriculumForm(props) {
                         IconComponent={FaIcons.FaPlus}
                         onClick={addStrand}
                         text="Add Strand"
-                        buttonWidth="150px"
+                        buttonWidth="140px"
+                        buttonHeight="40px"
                     />
                     <br />
                     <Button
                         IconComponent={FaIcons.FaCheck}
                         onClick={handleSubmit}
                         text="Submit"
-                        buttonWidth="150px"
+                        buttonWidth="170px"
+                        buttonHeight="40px"
                         type="submit"
                     />
                 </div>

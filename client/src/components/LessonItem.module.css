@@ -1,12 +1,18 @@
 .lessonItem {
     display: flex;
     flex-direction: column;
-    padding: 10px;
+    padding: 20px;
     border-radius: 10px;
-    background-color: var(--gray);
+    background-color: #f6f6f6;
     margin-bottom: 20px;
     position: relative;
     width: 100%;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.lessonItem:hover {
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .removeButton {
@@ -24,30 +30,27 @@
 .field label {
     font-weight: bold;
     margin-bottom: 5px;
-    padding: 5px;
+    color: var(--text);
 }
 
-.field input {
+.field input,
+.field textarea {
     background-color: var(--bg);
-    width: 90%;
+    border: 1px solid var(--gray);
+    padding: 10px;
+    border-radius: 5px;
+    color: var(--text);
+    width: 100%;
 }
 
 .field textarea {
-    background-color: var(--bg);
-    width: 90%;
-    height: 100px;
+    height: 48px; /* roughly 2 lines */
+    resize: vertical; /* allow user to resize vertically if they need more space */
 }
 
-.row {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 20px;
-}
-
+.row,
 .buttonContainer {
     display: flex;
-    flex-direction: row;
     justify-content: center;
-    gap: 20px;
+    gap: 30px;
 }

@@ -62,6 +62,7 @@ const MindmapPage = () => {
                     onClick={generate}
                     text="Generate"
                     buttonWidth="150px"
+                    buttonHeight="50px"
                 />
                 <br />
                 <div className={classes.mindmapContainer}>

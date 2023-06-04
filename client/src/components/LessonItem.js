@@ -15,7 +15,8 @@ function LessonItem(props) {
     const [numClasses, setNumClasses] = useState(item.numClasses);
     const [classLength, setClassLength] = useState(item.classLength);
 
-    const viewPlan = () => {
+    const viewPlan = async() => {
+        await saveLesson();
         props.fade("/lesson", { lessonId: item._id })
     }
 
@@ -31,15 +32,47 @@ function LessonItem(props) {
         }
     }
 
-    const generatePlan = async() => 
+    const saveLesson = async () => 
     {
+        // post to route /curriculum/update-lesson with payload of every value which includes
+        // the lessonId, week, conceptualUnderstanding, benchmark, conceptualQuestion, numClasses, classLength
+
+        if (!week || !conceptualUnderstanding || !benchmark || !conceptualQuestion || !numClasses || !classLength) {
+            alert("All fields are required");
+            return;
+        }
+
         setIsLoading(true);
 
+        const state = { week, conceptualUnderstanding, benchmark, conceptualQuestion, numClasses, classLength };
+
+        const response = await fetch("/curriculum/update-lesson", {
+            headers: { "Content-Type": "application/json" },
+            method: "POST",
+            body: JSON.stringify({ ...state, lessonId: item._id }),
+        });
+
+        const data = await response.json();
+
+        if (data.status !== "OK") {
+            alert(data.message);
+            return;
+        }
+
+        setIsLoading(false);
+    }
+
+    const generatePlan = async() => 
+    {   
         if (!week || !conceptualUnderstanding || !benchmark || !conceptualQuestion || !numClasses || !classLength) {
             alert("All fields are required");
             setIsLoading(false);
             return;
         }
+        
+        await saveLesson();
+
+        setIsLoading(true);
 
         const state = { week, conceptualUnderstanding, benchmark, conceptualQuestion, numClasses, classLength }; 
 
@@ -125,7 +158,7 @@ function LessonItem(props) {
                     />
                 </div>
                 <div className={classes.field}>
-                    <label>Length of each Lesson</label>
+                    <label>Length of each Lesson (minutes)</label>
                     <input
                         type="number"
                         value={classLength}
@@ -136,7 +169,8 @@ function LessonItem(props) {
                 </div>
             </div>
             <div className={classes.buttonContainer}>
-                <Button text="Delete" buttonWidth="100px" onClick={props.onRemove} />
+                {/* <Button text="Delete" buttonWidth="100px" onClick={props.onRemove} /> */}
+                <Button text="Save" buttonWidth="100px" onClick={saveLesson} />
                 <Button text="Plan" buttonWidth="100px" onClick={generatePlan} />
                 <Button text="View" buttonWidth="100px" onClick={viewPlan} />
             </div>
