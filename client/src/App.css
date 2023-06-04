@@ -9,8 +9,8 @@ body
   background-color: var(--bg);
   overflow-x: hidden;
 
-  margin-left: 20vw;
-  margin-right: 20vw;
+  margin-left: 10vw;
+  margin-right: 10vw;
 
   margin-bottom: 100px;
 }
@@ -52,7 +52,7 @@ button
   font-weight: 500;
   font-size: 19px;
   margin: 5px;
-  background-color: var(--panel);
+  background-color: var(--bg);
   color: var(--text);
   transition: 0.2s;
 }

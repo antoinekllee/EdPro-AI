@@ -6,8 +6,8 @@ import * as AiIcons from "react-icons/ai"
 import UserContext from '../store/UserContext';
 
 import Title from '../components/Logo';
-
 import Button from '../components/Button';
+import landingImage from '../assets/landing_image.png'
 
 import classes from './LandingPage.module.css'
 
@@ -15,27 +15,22 @@ function LandingPage (props)
 {
     const { user } = useContext (UserContext); 
 
-    return <div> 
+    return (
         <div className={classes.mainContainer}>
-            <Title />
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non ligula in ligula bibendum facilisis sit amet eget massa. Nulla semper nisi et rhoncus posuere. Pellentesque at mattis metus. Pellentesque in nulla magna. Pellentesque sed consectetur lectus. Suspendisse vitae quam vitae est molestie dapibus.</p>
-            <div className={classes.buttons}>
-                {/* <button onClick={() => props.fade('/signup')}><FaIcons.FaUserPlus className={classes.buttonIcon} />Sign Up</button>
-                <button onClick={() => props.fade(user ? '/' : '/login')}><FaIcons.FaSignInAlt className={classes.buttonIcon} />Login</button> */}
-
-                <Button onClick={() => props.fade('/signup')} text="Get Started" IconComponent={FaIcons.FaUserPlus} buttonWidth="200px" isBlue />
-                <Button onClick={() => props.fade(user ? '/' : '/login')} text="Login" IconComponent={FaIcons.FaSignInAlt} buttonWidth="200px" />
+            <div className={classes.leftContainer}>
+                <Title />
+                <p>A webapp for supporting educators by leveraging AI technology.</p>
+                <div className={classes.buttons}>
+                    <Button onClick={() => props.fade('/signup')} text="Get Started" IconComponent={FaIcons.FaUserPlus} buttonWidth="200px" isBlue />
+                    <Button onClick={() => props.fade(user ? '/' : '/login')} text="Login" IconComponent={FaIcons.FaSignInAlt} buttonWidth="200px" />
+                </div>
             </div>
-            <button className={classes.moreInfoButton}>More Info<br /><AiIcons.AiOutlineDown className={classes.moreInfoIcon} /></button>
-            
+            <div>
+                <img src={landingImage} className={classes.landingPageImage} alt="Landing"/>
+            </div>
         </div>
-        <div className={classes.infoContainer}>
-            <p>Writing Mentor Reports: Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-            <p>Syllabus Generation: Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-            <p>Lesson Plans: Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-            <p>Mindmap Visualisation: Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-        </div>
-    </div> 
+    )
 }
+
 
 export default LandingPage; 

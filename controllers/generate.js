@@ -67,12 +67,17 @@ const mindmap = async(req, res) => {
         if (!input)
             return res.status (400).json ({ status: "ERROR", message: "Input is required" });
 
-        const { systemPrompt } = mindmapPrompt;
-        const userInput = [
-            {role: "user", content: input}
+        let messages = [
+            { "role": "system", "content": mindmapPrompt.prompt },
+            { "role": "user", "content": input }
         ];
 
-        const mindmap = await generateAIResponse(systemPrompt, userInput);
+        // const { prompt } = mindmapPrompt;
+        // const userInput = [
+        //     {role: "user", content: input}
+        // ];
+
+        const mindmap = await generateAIResponse(messages, "gpt-4", { maxTokens: 2000 });
 
         console.log ("Finished generating");
 

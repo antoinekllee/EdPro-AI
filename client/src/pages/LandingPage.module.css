@@ -1,12 +1,22 @@
 .mainContainer
 {
-    height: 100vh;
-    width: 60vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    padding: 2rem;
+    height: 100%;
+    margin-top: 12%;
+    gap: 2rem;
+}
 
+.leftContainer
+{
     display: flex;
     justify-content: center;
     flex-direction: column;
-    align-items: center;
+    align-items: center; 
+    /* gap: -2rem; */
 }
 
 .buttons
@@ -22,24 +32,9 @@
     margin-right: 10px;
 }
 
-.moreInfoButton
+.landingPageImage
 {
-    margin-top: 15%;
-
-    background: none !important;
-    font-size: 15px;
-
-    color: var(--gray);
-    transition: 0.2s;
-}
-
-.moreInfoButton:hover
-{
-    color: var(--text);
-}
-
-.moreInfoIcon
-{
-    margin-top: 10px;
-    font-size: 20px;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
 }
