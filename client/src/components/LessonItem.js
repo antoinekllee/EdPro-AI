@@ -46,7 +46,7 @@ function LessonItem(props) {
 
         const state = { week, conceptualUnderstanding, benchmark, conceptualQuestion, numClasses, classLength };
 
-        const response = await fetch("/curriculum/update-lesson", {
+        const response = await fetch("/api/curriculum/update-lesson", {
             headers: { "Content-Type": "application/json" },
             method: "POST",
             body: JSON.stringify({ ...state, lessonId: item._id }),
@@ -76,7 +76,7 @@ function LessonItem(props) {
 
         const state = { week, conceptualUnderstanding, benchmark, conceptualQuestion, numClasses, classLength }; 
 
-        const response = await fetch("/generate/lesson", {
+        const response = await fetch("/api/generate/lesson", {
             headers: { "Content-Type": "application/json" },
             method: "POST",
             body: JSON.stringify(state),
@@ -95,7 +95,7 @@ function LessonItem(props) {
         console.log ("FINISHED GENERATING WITH PAYLOAD:")
         console.log (payload)
 
-        const responseDb = await fetch("/curriculum/update-lesson", {
+        const responseDb = await fetch("/api/curriculum/update-lesson", {
             headers: { "Content-Type": "application/json" },
             method: "POST",
             body: JSON.stringify(payload),

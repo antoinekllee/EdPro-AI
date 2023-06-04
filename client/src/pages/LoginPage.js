@@ -24,7 +24,7 @@ function LoginPage (props)
         
         const loginData = { username, password }; 
 
-        const response = await fetch ("/user/login", 
+        const response = await fetch ("/api/user/login", 
         { 
             body: JSON.stringify (loginData), // send over text representation of json object 
             headers: { "Content-Type": "application/json" }, 

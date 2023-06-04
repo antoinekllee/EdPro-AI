@@ -30,7 +30,7 @@ function CurriculumOutput(props) {
 
         const fetchCurriculum = async () => {
             setIsLoading(true);
-            const response = await fetch(`/curriculum/getById/${state.curriculumId}`);
+            const response = await fetch(`/api/curriculum/getById/${state.curriculumId}`);
             const data = await response.json();
             setIsLoading(false);
 

@@ -1,5 +1,5 @@
 const express = require ("express"); 
-const controller = require ("../../controllers/generate"); 
+const controller = require ("../../../controllers/generate"); 
 
 const router = express.Router (); 
 

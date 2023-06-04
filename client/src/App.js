@@ -32,7 +32,7 @@ function App() {
     const getUser = useCallback(async () => {
         setIsLoading(true);
 
-        const response = await fetch("/user", {
+        const response = await fetch("/api/user", {
             headers: { "Content-Type": "application/json" },
             method: "GET",
         });

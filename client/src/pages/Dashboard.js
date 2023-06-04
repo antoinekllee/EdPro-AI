@@ -20,7 +20,7 @@ function Dashboard(props) {
         const getCurriculums = async () => {
             setIsLoading(true);
 
-            const response = await fetch("/curriculum");
+            const response = await fetch("/api/curriculum");
             const data = await response.json();
 
             if (data.status === "ERROR") {
