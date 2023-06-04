@@ -60,7 +60,7 @@ function CurriculumForm(props) {
 
         console.log(state)
 
-        const response = await fetch("/generate/curriculum", {
+        const response = await fetch("/api/generate/curriculum", {
             headers: { "Content-Type": "application/json" },
             method: "POST",
             body: JSON.stringify(state),
@@ -77,7 +77,7 @@ function CurriculumForm(props) {
 
         const payload = { ...state, lessonItems };
 
-        const responseDb = await fetch("/curriculum/new", {
+        const responseDb = await fetch("/api/curriculum/new", {
             headers: { "Content-Type": "application/json" },
             method: "POST",
             body: JSON.stringify(payload),

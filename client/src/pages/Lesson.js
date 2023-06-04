@@ -32,7 +32,7 @@ function Lesson(props) {
         const fetchLesson = async () => {
             setIsLoading(true);
 
-            const response = await fetch(`/curriculum/lesson/${state.lessonId}`);
+            const response = await fetch(`/api/curriculum/lesson/${state.lessonId}`);
             const data = await response.json();
 
             setIsLoading(false);
@@ -62,7 +62,7 @@ function Lesson(props) {
 
         setIsLoading(true);
 
-        const response = await fetch('/curriculum/update-lesson', {
+        const response = await fetch('/api/curriculum/update-lesson', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

@@ -49,7 +49,7 @@ function SignupPage (props)
 
         const signupData = { username, email, password }; 
 
-        const response = await fetch ("/user/new", 
+        const response = await fetch ("/api/user/new", 
         { 
             body: JSON.stringify (signupData), // send over text representation of json object 
             headers: { "Content-Type": "application/json" }, 

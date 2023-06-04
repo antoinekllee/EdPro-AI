@@ -32,7 +32,7 @@ const MindmapPage = () => {
 
         setIsLoading(true);
 
-        const response = await fetch("/generate/mindmap", {
+        const response = await fetch("/api/generate/mindmap", {
             headers: { "Content-Type": "application/json" },
             method: "POST",
             body: JSON.stringify({ input }),

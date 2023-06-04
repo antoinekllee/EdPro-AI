@@ -22,7 +22,7 @@ function Navbar(props)
     {
         setIsLoading (true); 
 
-        const response = await fetch ("/user/logout", 
+        const response = await fetch ("/api/user/logout", 
         { 
             headers: { "Content-Type": "application/json" }, 
             method: "GET"

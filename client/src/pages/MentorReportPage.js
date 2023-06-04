@@ -58,7 +58,7 @@ function MentorReportPage(props) {
 
         const payload = { studentName, casExperiences, skills: skillsString };
 
-        const response = await fetch("/generate/mentorReport", {
+        const response = await fetch("/api/generate/mentorReport", {
             headers: { "Content-Type": "application/json" },
             method: "POST",
             body: JSON.stringify(payload),
