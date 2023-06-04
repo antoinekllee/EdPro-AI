@@ -20,8 +20,8 @@ function LandingPage (props)
                 <Title />
                 <p>A webapp for supporting educators by leveraging AI technology.</p>
                 <div className={classes.buttons}>
-                    <Button onClick={() => props.fade('/signup')} text="Get Started" IconComponent={FaIcons.FaUserPlus} buttonWidth="200px" isBlue />
-                    <Button onClick={() => props.fade(user ? '/' : '/login')} text="Login" IconComponent={FaIcons.FaSignInAlt} buttonWidth="200px" />
+                    <Button onClick={() => props.fade('/signup')} text="Get Started" IconComponent={FaIcons.FaUserPlus} buttonWidth="200px" buttonHeight="50px" isBlue />
+                    <Button onClick={() => props.fade(user ? '/' : '/login')} text="Login" IconComponent={FaIcons.FaSignInAlt} buttonWidth="200px" buttonHeight="50px" />
                 </div>
             </div>
             <div>

@@ -1,13 +1,24 @@
 .submitButton {
     align-self: center;
-    margin-top: 25px;
     border: 2px solid var(--gray);
+    transition: border 0.2s; /* Adding transition */
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.submitButton:hover {
+    border-color: var(--black); /* On hover, border turns black */
 }
 
 .blueButton {
     background-color: var(--blue);
     border: none;
     color: white;
+    transition: background-color 0.2s; /* Adding transition */
+}
+
+.blueButton:hover {
+    background-color: var(--light-blue); /* On hover, background color turns slightly lighter blue */
 }
 
 .buttonIcon {

@@ -7,6 +7,7 @@ function Button(props) {
         onClick,
         text,
         buttonWidth = "auto",
+        buttonHeight = "auto", 
         type = "button",
         className, 
         isBlue
@@ -14,9 +15,10 @@ function Button(props) {
 
     const buttonStyle = {
         width: buttonWidth,
+        height: buttonHeight, 
+        fontSize: `calc(17px + ${Math.min(parseInt(buttonWidth), parseInt(buttonHeight))/50}px)`, // calculate font size based on button dimensions
     };
 
-    // Generate dynamic class based on 'isBlue' prop.
     const buttonClass = `${classes.submitButton} ${className} ${isBlue ? classes.blueButton : ''}`;
 
     return (
