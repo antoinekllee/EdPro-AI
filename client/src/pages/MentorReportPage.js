@@ -133,6 +133,7 @@ function MentorReportPage(props) {
                       onClick={generate}
                       text="Generate"
                       buttonWidth="150px"
+                      buttonHeight="50px"
                       type="submit"
                     />
                 </form>

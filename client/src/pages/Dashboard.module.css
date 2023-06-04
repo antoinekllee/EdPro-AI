@@ -1,30 +1,40 @@
-.container
-{
-    width: 60vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.container {
+  width: 60vw;
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* horizontally aligns items along the cross axis */
+  justify-content: center; /* vertically aligns items along the main axis */
+  gap: 1em;
 }
 
-
-.backButton
-{
-    /* display: block;
-    margin-left: auto;
-    margin-right: auto; */
-    /* Align right */
-    margin-bottom: 30px;
+.backButton {
+  margin-bottom: 30px;
 }
 
 .buttonContainer {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  max-width: 600px; /* Adjust this value based on your desired button container width */
-  margin: 0 auto; /* Center the button container */
+  align-items: center; /* align items in the center */
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .twoColumnButton {
-  width: calc(50% - 10px) !important; /* Adjust button width to fill half of the container, minus some space for the gap */
-  margin-bottom: 20px; /* Add some space between button rows */
+  width: calc(50% - 10px) !important;
+  margin-bottom: 20px;
+  padding: 1em; /* add padding to buttons */
+}
+
+.curriculumHeader {
+  width: 100%;
+  text-align: left;
+  padding-left: 1em; /* align with the buttonContainer */
+  margin-top: 2em;
+}
+
+
+.curriculumItem {
+  margin-bottom: 20px; /* Adjust this value according to your preference */
 }

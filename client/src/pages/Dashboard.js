@@ -69,7 +69,7 @@ function Dashboard(props) {
                     />
                 </div>
             </div>
-            <h2>Curriculums</h2>
+            <h2 className={classes.curriculumHeader}>Curriculums</h2>
             <br />
             { curriculums && curriculums.map((curriculum) => (
                 <CurriculumItem
@@ -78,6 +78,7 @@ function Dashboard(props) {
                     unitTitle={curriculum.unitTitle}
                     numOfWeeks={curriculum.numOfWeeks}
                     viewCurriculum={() => fade("/curriculum", { curriculumId: curriculum._id })}
+                    className={classes.curriculumItem}
                 />
             ))}
         </div>

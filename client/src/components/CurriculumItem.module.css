@@ -1,11 +1,22 @@
-.container
-{
+.container {
     width: 100%;
     background-color: var(--panel);
+    padding: 15px; /* Add padding around the content */
+    border-radius: 5px; /* Slight border radius for rounded corners */
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1); /* Simple box shadow for depth */
     /* Align items horizontally */
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between; /* Makes space between the title and the button */
+    align-items: center; /* Center align the content vertically */
     /* Gap */
     gap: 20px;
+}
+
+.info {
+    flex: 1; /* This makes sure that the info section takes up all available space */
+}
+
+.button {
+    flex-shrink: 0; /* This makes sure that the button does not shrink if the container size decreases */
 }

@@ -1,7 +1,6 @@
 .mainContainer {
     height: 90%;
     width: 60vw;
-
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -13,6 +12,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
+    margin-top: 20px;
 }
 
 .formContent {
@@ -35,25 +35,25 @@
 .checkboxContainer {
     display: flex;
     align-items: center;
-    margin-bottom: 5px;
-    flex-basis: 45%; /* Add this line */
-    box-sizing: border-box; /* Add this line */
+    justify-content: flex-start;
+    margin-bottom: 10px;
+    width: 45%; 
+    box-sizing: border-box;
 }
 
 .checkboxContainer input[type="checkbox"] {
-    margin-right: 5px; /* Change this from 10px to 5px */
-    width: 16px; /* Add this line */
-    height: 16px; /* Add this line */
+    margin-right: 10px;
+    width: 30px; /* Adjust this value to your preference */
+    height: 48px; /* Adjust this value to your preference */
 }
 
 .formRight {
-    display: flex; /* Add this line */
-    flex-wrap: wrap; /* Add this line */
-    width: 45%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 10px;
 }
 
-
-.warningText
-{
+.warningText {
     color: var(--red);
 }

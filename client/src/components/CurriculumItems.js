@@ -10,15 +10,17 @@ function CurriculumItem(props) {
 
     return (
         <div className={classes.container}>
-            <div>
+            <div className={classes.info}>
                 <h3>Curriculum for {subject} - {unitTitle}</h3>
-                <h3>{numOfWeeks} Weeks</h3>
+                <h4>{numOfWeeks} Weeks</h4> {/* Make this h4 to make it slightly smaller than the title */}
             </div>
-            <Button
-                onClick={viewCurriculum}
-                IconComponent={FaIcons.FaEye}
-                text="View"
-            />
+            <div className={classes.button}>
+                <Button
+                    onClick={viewCurriculum}
+                    IconComponent={FaIcons.FaEye}
+                    text="View"
+                />
+            </div>
         </div>
     );
 }
